@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAM|FUND — design mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Public fallback: Feijoa is licensed and cannot be served. Visitors without it
+     installed get Newsreader — a warm high-contrast serif close to Feijoa in spirit. -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+<style>
+/* ── Feijoa (Klim Type Foundry, Cambridge cut) ─────────────────
+   Installed locally as three separate families. Rebuilt here into
+   ONE synthetic family so the spec's weight ladder maps to real
+   outlines rather than browser-synthesised fake bold.
+     300 / 380  → Feijoa Medium
+     570 / 790  → Feijoa Bold
+   src: local() only — no font file is copied or served. ──────── */
+@font-face{
+  font-family:'Feijoa';
+  src:local('Feijoa Medium'), local('Feijoa-Medium-Cambridge'), local('FeijoaMedium-Cambridge');
+  font-weight:100 500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Feijoa';
+  src:local('Feijoa Medium Italic'), local('Feijoa-MediumItalic-Cambridge');
+  font-weight:100 500; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:'Feijoa';
+  src:local('Feijoa Bold'), local('Feijoa-Bold-Cambridge'), local('FeijoaBold-Cambridge');
+  font-weight:501 900; font-style:normal; font-display:swap;
+}
+
+:root{
+  /* ── LIGHT THEME ──────────────────────────────────────────────
+     Canvas and ink swap roles from the master spec.
+     Every value below is measured against the canvas. ────────── */
+  --color-canvas:#8EE8D8;        /* Cambridge Blue — page canvas          */
+  --color-ink:#133844;           /* Void Blue — text, hairlines  8.76:1   */
+  --color-surface:#D1F9F1;       /* Light Blue — card fill, subtle lift   */
+  --color-paper-white:#ffffff;   /* text on the one dark surface  12.52:1 */
+
+  /* Loud accent. Warm Blue #00BDB6 measures 1.64:1 here and cannot
+     carry this role; every teal legible on mint converges on the ink. */
+  --color-loud:#911449;          /* Dark Cherry              6.12:1       */
+
+  /* Category markers */
+  --color-purple:#681FB1;        /* Colleges                 6.07:1       */
+  --color-green:#13553A;         /* Prizes                   6.15:1       */
+
+  /* Retained for the contrast audit only */
+  --color-warm-blue:#00BDB6;
+  --color-cherry-lift:#E86A96;
+  --color-purple-lift:#B58CF0;
+  --color-green-lift:#5FC79A;
+
+  /* Alpha tokens. NOTE: values inherited from the dark theme all failed on
+     inversion — ink@70% on mint is 4.10:1 where white@70% on void blue was
+     6.98:1. Alpha degrades asymmetrically toward a light canvas, so these
+     are set at the measured floor, not by eye. Hierarchy below secondary
+     comes from size and weight, not further opacity steps. */
+  --rule:rgba(19,56,68,.60);     /* boundary line       3.24:1 min        */
+  --muted:rgba(19,56,68,.85);    /* secondary text      5.63:1 min        */
+  --faint:rgba(19,56,68,.74);    /* tertiary text       4.53:1 min — floor*/
+
+  /* ── Type ─────────────────────────────────────────── */
+  --font-feijoa:'Feijoa','Feijoa Medium-Cambridge','Newsreader',ui-serif,Georgia,serif;
+  --text-caption:12px;   --leading-caption:1.3;   --tracking-caption:0.6px;
+  --text-body-sm:14px;   --leading-body-sm:1.38;  --tracking-body-sm:0.7px;
+  --text-body:16px;      --leading-body:1.43;     --tracking-body:0.8px;
+  --text-subheading:20px;--leading-subheading:1.3;--tracking-subheading:1px;
+  --text-heading-sm:47px;--leading-heading-sm:1.15;--tracking-heading-sm:-1.18px;
+  --text-heading:79px;   --leading-heading:1.14;  --tracking-heading:-1.98px;
+  --text-display:130px;  --leading-display:1.08;  --tracking-display:-3.25px;
+
+  --w-light:300; --w380:380; --w570:570; --w790:790;
+
+  /* ── Space & shape ────────────────────────────────── */
+  --spacing-10:10px; --spacing-15:15px; --spacing-20:20px; --spacing-23:23px;
+  --spacing-30:30px; --spacing-38:38px; --spacing-60:60px; --spacing-63:63px;
+  --spacing-108:108px; --spacing-150:150px;
+  --radius-bodies:8px; --radius-buttons:70px;
+
+  --gutter:clamp(20px,5vw,63px);
+  --content-max:1180px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+  background:var(--color-canvas);
+  color:var(--color-ink);
+  font-family:var(--font-feijoa);
+  font-size:var(--text-body);
+  font-weight:var(--w380);
+  line-height:var(--leading-body);
+  letter-spacing:var(--tracking-body);
+}
+a{color:inherit}
+
+.label{
+  font-size:var(--text-caption);
+  line-height:var(--leading-caption);
+  letter-spacing:0.05em;
+  font-weight:var(--w380);
+  text-transform:uppercase;
+}
+
+/* ── Sample-data banner — inverted ──────────────────── */
+.banner{
+  background:var(--color-ink);
+  color:var(--color-canvas);
+  text-align:center;
+  padding:9px var(--gutter);
+  font-weight:var(--w570);
+  letter-spacing:0.08em;
+}
+
+/* ── Nav ────────────────────────────────────────────── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--spacing-38);
+  padding:var(--spacing-23) var(--gutter);
+  border-bottom:1px solid var(--color-ink);
+}
+.wordmark{font-size:var(--text-caption);letter-spacing:0.14em;font-weight:var(--w570);text-transform:uppercase}
+.wordmark .bar{color:var(--color-loud);margin:0 2px}
+.nav-links{display:flex;gap:var(--spacing-38);list-style:none}
+.nav-links a{text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent}
+.nav-links a.active{border-bottom-color:var(--color-loud)}
+.nav-utility{display:flex;gap:var(--spacing-20);color:var(--muted)}
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero{padding:var(--spacing-150) var(--gutter) var(--spacing-108)}
+.hero h1{
+  font-size:clamp(52px,10.5vw,var(--text-display));
+  line-height:var(--leading-display);
+  letter-spacing:var(--tracking-display);
+  font-weight:var(--w-light);
+  max-width:14ch;
+}
+.hero p{margin-top:var(--spacing-30);max-width:52ch;color:var(--muted)}
+.hero .stat-row{display:flex;gap:var(--spacing-60);margin-top:var(--spacing-63);flex-wrap:wrap}
+.hero .stat-row div span{display:block;color:var(--faint);margin-bottom:6px}
+.hero .stat-row div strong{
+  font-size:var(--text-subheading);font-weight:var(--w570);
+  letter-spacing:var(--tracking-subheading);color:var(--color-ink);
+}
+
+/* ── Sections ───────────────────────────────────────── */
+section.listing,section.assistant,section.audit{
+  padding:var(--spacing-108) var(--gutter);
+  border-top:1px solid var(--rule);
+}
+.inner{max-width:var(--content-max);margin:0 auto}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--spacing-30);flex-wrap:wrap}
+.section-head h2{
+  font-size:var(--text-heading-sm);line-height:var(--leading-heading-sm);
+  letter-spacing:var(--tracking-heading-sm);font-weight:var(--w-light);
+}
+.count{color:var(--faint)}
+
+/* ── Ghost pills — never filled ─────────────────────── */
+.filters{display:flex;flex-wrap:wrap;gap:var(--spacing-10);margin-top:var(--spacing-38)}
+.filter-group{display:flex;flex-wrap:wrap;gap:var(--spacing-10);align-items:center}
+.filter-group > .label{color:var(--faint);margin-right:6px}
+.pill{
+  border:1px solid var(--color-ink);
+  border-radius:var(--radius-buttons);
+  background:transparent;color:var(--color-ink);
+  padding:10px 20px;font-family:inherit;cursor:pointer;
+  font-size:var(--text-caption);letter-spacing:0.05em;text-transform:uppercase;font-weight:var(--w380);
+  transition:border-color .18s ease,color .18s ease;
+}
+.pill:hover{border-color:var(--color-loud);color:var(--color-loud)}
+.pill[aria-pressed="true"]{border-color:var(--color-loud);color:var(--color-loud);font-weight:var(--w570)}
+
+/* ── Cards ──────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--spacing-20);margin-top:var(--spacing-38)}
+.card{
+  border:1px solid var(--rule);
+  border-radius:var(--radius-bodies);
+  padding:var(--spacing-20);
+  background:var(--color-surface);
+  display:flex;flex-direction:column;gap:var(--spacing-15);
+}
+.card-title{display:flex;gap:10px;align-items:flex-start}
+.dot{width:4px;height:4px;border-radius:50%;flex:none;margin-top:9px}
+.dot.college{background:var(--color-purple)}
+.dot.prize{background:var(--color-green)}
+.card h3{
+  font-size:var(--text-subheading);line-height:var(--leading-subheading);
+  letter-spacing:var(--tracking-subheading);font-weight:var(--w380);
+}
+.provider{color:var(--muted);font-size:var(--text-body-sm);letter-spacing:var(--tracking-body-sm)}
+.card p.desc{font-size:var(--text-body-sm);line-height:var(--leading-body-sm);letter-spacing:var(--tracking-body-sm);color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{border:1px solid var(--rule);border-radius:var(--radius-buttons);padding:4px 12px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.meta{display:flex;justify-content:space-between;gap:var(--spacing-15);align-items:baseline;padding-top:var(--spacing-15);border-top:1px solid var(--rule)}
+.amount{color:var(--color-ink);font-weight:var(--w570);letter-spacing:var(--tracking-body-sm);font-size:var(--text-body-sm)}
+.deadline{font-size:var(--text-body-sm);letter-spacing:var(--tracking-body-sm);text-align:right}
+.deadline.fixed{color:var(--color-ink)}
+.deadline.urgent{color:var(--color-loud);font-weight:var(--w570)}
+.deadline.rolling{color:var(--muted)}
+.deadline.recurring{color:var(--muted)}
+.deadline.unknown{color:var(--faint);font-style:italic}
+.provenance{display:flex;justify-content:space-between;gap:var(--spacing-10);align-items:center;font-size:11px;letter-spacing:.04em;color:var(--faint)}
+.provenance a{color:var(--color-loud);text-decoration:underline;text-underline-offset:3px}
+
+/* ── Assistant ──────────────────────────────────────── */
+.ask-box{margin-top:var(--spacing-38);border:1px solid var(--color-ink);border-radius:var(--radius-bodies);padding:var(--spacing-20);display:flex;flex-direction:column;gap:var(--spacing-15)}
+.ask-box textarea{
+  width:100%;background:transparent;border:none;resize:vertical;color:var(--color-ink);
+  font-family:inherit;font-size:var(--text-body);line-height:var(--leading-body);letter-spacing:var(--tracking-body);min-height:78px;
+}
+.ask-box textarea:focus{outline:none}
+.ask-box textarea::placeholder{color:var(--faint)}
+.ask-actions{display:flex;justify-content:space-between;align-items:center;gap:var(--spacing-15);flex-wrap:wrap}
+.thinking{color:var(--color-loud);display:none}
+.thinking.on{display:block}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+.thinking.on span{animation:pulse 1.1s ease-in-out infinite}
+
+.answer{display:none;margin-top:var(--spacing-38);flex-direction:column;gap:var(--spacing-20)}
+.answer.on{display:flex}
+.answer > .label{color:var(--faint)}
+
+/* The ONE dark surface in the light system — mirrors the master spec's
+   single light surface in the dark system. Same role, inverted. */
+.rec{
+  background:var(--color-ink);color:var(--color-paper-white);
+  border-radius:var(--radius-bodies);padding:var(--spacing-20);
+  display:flex;flex-direction:column;gap:12px;
+}
+.rec .rank{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-canvas);font-weight:var(--w570)}
+.rec h3{font-size:var(--text-subheading);letter-spacing:var(--tracking-subheading);font-weight:var(--w570)}
+.rec .rec-provider{font-size:var(--text-body-sm);color:rgba(255,255,255,.7)}
+.rec .why{font-size:var(--text-body-sm);line-height:1.45;color:rgba(255,255,255,.85)}
+.rec .caveat{font-size:var(--text-body-sm);line-height:1.45;padding-left:12px;border-left:2px solid var(--color-canvas);color:rgba(255,255,255,.8)}
+.rec .caveat b{font-weight:var(--w570);color:var(--color-canvas)}
+.rec .rec-meta{display:flex;justify-content:space-between;gap:var(--spacing-15);flex-wrap:wrap;font-size:var(--text-body-sm);padding-top:12px;border-top:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6)}
+.rec .rec-meta a{color:var(--color-canvas);text-decoration:underline;text-underline-offset:3px}
+
+/* ── Contrast audit ─────────────────────────────────── */
+.audit .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--spacing-20);margin-top:var(--spacing-38)}
+.sw{border:1px solid var(--rule);border-radius:var(--radius-bodies);padding:var(--spacing-20);display:flex;flex-direction:column;gap:var(--spacing-15);background:var(--color-surface)}
+.sw-row{display:flex;align-items:center;gap:12px}
+.sw-row .dot{margin-top:0;width:4px;height:4px}
+.sw-row .big{width:22px;height:22px;border-radius:50%;flex:none}
+.sw-name{font-size:var(--text-body-sm);letter-spacing:var(--tracking-body-sm)}
+.ratio{font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+.ratio.bad{color:var(--color-loud);font-weight:var(--w570)}
+.ratio.good{color:var(--color-green);font-weight:var(--w570)}
+.audit p.note{margin-top:var(--spacing-20);color:var(--muted);font-size:var(--text-body-sm);max-width:66ch}
+
+footer{padding:var(--spacing-60) var(--gutter);border-top:1px solid var(--rule);color:var(--muted)}
+footer p{max-width:70ch;font-size:var(--text-body-sm);line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="banner label">Design mockup — all funding entries below are invented sample data, not real Cambridge awards</div>
+
+<nav>
+  <div class="wordmark">CAM<span class="bar">|</span>FUND</div>
+  <ul class="nav-links label">
+    <li><a href="#listing" class="active">Colleges</a></li>
+    <li><a href="#assistant">Ask the assistant</a></li>
+  </ul>
+  <div class="nav-utility label"><span>Search</span></div>
+</nav>
+
+<header class="hero">
+  <h1>every fund. one place.</h1>
+  <p>The small college awards that no central database indexes — travel grants, hardship funds, book grants, conference bursaries and prizes, gathered from all 31 Cambridge colleges.</p>
+  <div class="stat-row label">
+    <div><span>Colleges indexed</span><strong>31</strong></div>
+    <div><span>Awards listed</span><strong>412</strong></div>
+    <div><span>Last full refresh</span><strong>3 days ago</strong></div>
+  </div>
+</header>
+
+<section class="listing" id="listing">
+  <div class="inner">
+    <div class="section-head">
+      <h2>Colleges</h2>
+      <div class="count label"><span id="count">8</span> awards shown</div>
+    </div>
+
+    <div class="filters">
+      <div class="filter-group">
+        <div class="label">Type</div>
+        <button class="pill" aria-pressed="false">Travel</button>
+        <button class="pill" aria-pressed="false">Hardship</button>
+        <button class="pill" aria-pressed="false">Grant</button>
+        <button class="pill" aria-pressed="false">Prize</button>
+      </div>
+      <div class="filter-group" style="margin-left:auto">
+        <div class="label">Deadline</div>
+        <button class="pill" aria-pressed="true">Open</button>
+        <button class="pill" aria-pressed="false">Rolling</button>
+        <button class="pill" aria-pressed="false">Unknown</button>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Travelling Studentship</h3><div class="provider">Trinity College</div></div></div>
+        <p class="desc">Supports vacation travel connected to a member's course of study, including fieldwork and archive visits abroad.</p>
+        <div class="tags"><span class="tag">Travel</span><span class="tag">UG + PG</span><span class="tag">Any subject</span></div>
+        <div class="meta"><span class="amount">up to £1,200</span><span class="deadline urgent">Closes 14 Aug 2026 · 17 days</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Student Hardship Fund</h3><div class="provider">St John's College</div></div></div>
+        <p class="desc">Discretionary assistance for members facing unexpected financial difficulty during their course. Assessed case by case by the Tutorial Office.</p>
+        <div class="tags"><span class="tag">Hardship</span><span class="tag">Need-based</span><span class="tag">UG + PG</span></div>
+        <div class="meta"><span class="amount">Variable</span><span class="deadline rolling">Rolling — apply any time</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Book &amp; Equipment Grant</h3><div class="provider">King's College</div></div></div>
+        <p class="desc">Annual allowance towards books, software and course equipment. Claimed against receipts at the end of each term.</p>
+        <div class="tags"><span class="tag">Grant</span><span class="tag">UG</span><span class="tag">Any subject</span></div>
+        <div class="meta"><span class="amount">£150 / year</span><span class="deadline recurring">Recurs each Michaelmas</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Conference Attendance Bursary</h3><div class="provider">Newnham College</div></div></div>
+        <p class="desc">Part-cost support for postgraduates presenting at an academic conference. Priority given to first-time presenters.</p>
+        <div class="tags"><span class="tag">Travel</span><span class="tag">PG only</span><span class="tag">Presenting</span></div>
+        <div class="meta"><span class="amount">up to £500</span><span class="deadline fixed">Closes 30 Sep 2026</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Vacation Study Grant</h3><div class="provider">Emmanuel College</div></div></div>
+        <p class="desc">Support for academic work undertaken during the Long Vacation where residence in Cambridge is required.</p>
+        <div class="tags"><span class="tag">Grant</span><span class="tag">UG + PG</span></div>
+        <div class="meta"><span class="amount">Not stated</span><span class="deadline unknown">Deadline not stated on source page</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot prize"></span><div><h3>Instrumental Music Prize</h3><div class="provider">Girton College</div></div></div>
+        <p class="desc">Awarded by audition to members showing outstanding instrumental or vocal achievement, regardless of subject read.</p>
+        <div class="tags"><span class="tag">Prize</span><span class="tag">By audition</span><span class="tag">UG + PG</span></div>
+        <div class="meta"><span class="amount">£400</span><span class="deadline fixed">Closes 12 Oct 2026</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot college"></span><div><h3>Fieldwork Support Fund</h3><div class="provider">Downing College</div></div></div>
+        <p class="desc">Contributions towards travel, accommodation and consumables for fieldwork forming part of a research degree.</p>
+        <div class="tags"><span class="tag">Travel</span><span class="tag">PG only</span><span class="tag">Research</span></div>
+        <div class="meta"><span class="amount">up to £800</span><span class="deadline rolling">Rolling — termly review</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="card-title"><span class="dot prize"></span><div><h3>Elective Travel Award</h3><div class="provider">Selwyn College</div></div></div>
+        <p class="desc">For clinical students undertaking an elective placement overseas. Report on return is a condition of the award.</p>
+        <div class="tags"><span class="tag">Travel</span><span class="tag">Clinical</span><span class="tag">UG</span></div>
+        <div class="meta"><span class="amount">up to £900</span><span class="deadline fixed">Closes 01 Nov 2026</span></div>
+        <div class="provenance"><span>Verified 3 days ago</span><a href="#">Source ↗</a></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="assistant" id="assistant">
+  <div class="inner">
+    <div class="section-head">
+      <h2>Ask the assistant</h2>
+      <div class="count label">Stateless — nothing is saved</div>
+    </div>
+
+    <div class="ask-box">
+      <textarea id="prompt">I'm a second-year PhD student in Archaeology at Downing. I need to get to a dig in southern Italy this September and my department grant won't cover the flights.</textarea>
+      <div class="ask-actions">
+        <div class="thinking label" id="thinking"><span>Searching 412 awards…</span></div>
+        <button class="pill" id="ask" style="margin-left:auto">Find funding →</button>
+      </div>
+    </div>
+
+    <div class="answer" id="answer">
+      <div class="label">3 best matches, ranked</div>
+
+      <div class="rec">
+        <div class="rank">Best match</div>
+        <h3>Fieldwork Support Fund</h3>
+        <div class="rec-provider">Downing College · up to £800 · rolling, termly review</div>
+        <p class="why">Your own college, explicitly scoped to fieldwork on a research degree, and it covers travel and accommodation — which is the gap your department grant leaves. Rolling deadline means you can apply now rather than waiting for a round.</p>
+        <p class="caveat"><b>Why this might not fit:</b> reviewed termly, so confirm with the Tutorial Office that a decision will land before you need to book flights.</p>
+        <div class="rec-meta"><span>Verified 3 days ago</span><a href="#">Downing funding page ↗</a></div>
+      </div>
+
+      <div class="rec">
+        <div class="rank">Second</div>
+        <h3>Travelling Studentship</h3>
+        <div class="rec-provider">Trinity College · up to £1,200 · closes 14 Aug 2026</div>
+        <p class="why">Largest award of the three and open to any subject for study-related travel abroad, which a dig would satisfy.</p>
+        <p class="caveat"><b>Why this might not fit:</b> restricted to members of Trinity — you are at Downing, so you are likely ineligible. Listed only because the amount and purpose match closely if you have any Trinity affiliation.</p>
+        <div class="rec-meta"><span>Verified 3 days ago</span><a href="#">Trinity funding page ↗</a></div>
+      </div>
+
+      <div class="rec">
+        <div class="rank">Third</div>
+        <h3>Conference Attendance Bursary</h3>
+        <div class="rec-provider">Newnham College · up to £500 · closes 30 Sep 2026</div>
+        <p class="why">Postgraduate travel money with a deadline that falls after your September trip, so it could reimburse a later commitment.</p>
+        <p class="caveat"><b>Why this might not fit:</b> scoped to presenting at a conference, not fieldwork, and restricted to Newnham members. Weak match on both counts.</p>
+        <div class="rec-meta"><span>Verified 3 days ago</span><a href="#">Newnham funding page ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audit">
+  <div class="inner">
+    <div class="section-head">
+      <h2>Contrast audit</h2>
+      <div class="count label">Measured against #8EE8D8</div>
+    </div>
+
+    <div class="swatches">
+      <div class="sw">
+        <div class="label" style="color:var(--faint)">Your spec accents — now correct</div>
+        <div class="sw-row"><span class="dot" style="background:#911449"></span><span class="big" style="background:#911449"></span><span class="sw-name">Dark Cherry #911449</span></div>
+        <div class="ratio good">6.12:1 — passes</div>
+        <div class="sw-row"><span class="dot" style="background:#681FB1"></span><span class="big" style="background:#681FB1"></span><span class="sw-name">Dark Purple #681FB1</span></div>
+        <div class="ratio good">6.07:1 — passes</div>
+        <div class="sw-row"><span class="dot" style="background:#13553A"></span><span class="big" style="background:#13553A"></span><span class="sw-name">Dark Green #13553A</span></div>
+        <div class="ratio good">6.15:1 — passes</div>
+      </div>
+
+      <div class="sw">
+        <div class="label" style="color:var(--faint)">The dark-canvas lift — now wrong</div>
+        <div class="sw-row"><span class="dot" style="background:#E86A96"></span><span class="big" style="background:#E86A96"></span><span class="sw-name">Cherry lifted #E86A96</span></div>
+        <div class="ratio bad">2.12:1 — fails</div>
+        <div class="sw-row"><span class="dot" style="background:#B58CF0"></span><span class="big" style="background:#B58CF0"></span><span class="sw-name">Purple lifted #B58CF0</span></div>
+        <div class="ratio bad">1.84:1 — fails</div>
+        <div class="sw-row"><span class="dot" style="background:#5FC79A"></span><span class="big" style="background:#5FC79A"></span><span class="sw-name">Green lifted #5FC79A</span></div>
+        <div class="ratio bad">1.45:1 — fails</div>
+      </div>
+
+      <div class="sw">
+        <div class="label" style="color:var(--faint)">Casualties of the inversion</div>
+        <div class="sw-row"><span class="big" style="background:#00BDB6"></span><span class="sw-name">Warm Blue #00BDB6</span></div>
+        <div class="ratio bad">1.64:1 — cannot be the loud accent</div>
+        <div class="sw-row"><span class="big" style="background:#ffffff"></span><span class="sw-name">Paper White #ffffff</span></div>
+        <div class="ratio bad">1.43:1 — no white text or hairlines</div>
+        <div class="sw-row"><span class="big" style="background:#D1F9F1"></span><span class="sw-name">Light Blue #D1F9F1</span></div>
+        <div class="ratio bad">1.26:1 — demoted to card fill</div>
+      </div>
+    </div>
+
+    <p class="note">Dots are shown at true 4px against the real canvas — the size they appear on a card title. Your three spec accents were calibrated for a light background all along; the dark canvas was the mismatch, not the colours. The threshold for a small non-text graphic under WCAG 1.4.11 is 3:1.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Mockup only.</strong> Every award, amount and deadline on this page is invented for design review. No scraping has been run and no real Cambridge funding data is represented here.</p>
+</footer>
+
+<script>
+document.querySelectorAll('.pill').forEach(function (p) {
+  if (p.id === 'ask') return;
+  p.addEventListener('click', function () {
+    p.setAttribute('aria-pressed', p.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+  });
+});
+
+// Deep-link #answer opens the result immediately (for review screenshots).
+if (location.hash === '#answer') document.getElementById('answer').classList.add('on');
+
+// Assistant — fake the two-call pipeline so the thinking state is visible.
+var ask = document.getElementById('ask');
+var thinking = document.getElementById('thinking');
+var answer = document.getElementById('answer');
+ask.addEventListener('click', function () {
+  answer.classList.remove('on');
+  thinking.classList.add('on');
+  setTimeout(function () {
+    thinking.classList.remove('on');
+    answer.classList.add('on');
+    answer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 1400);
+});
+</script>
+
+</body>
+</html>
