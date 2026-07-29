@@ -1,0 +1,1537 @@
+{
+  "$comment": "Phase 1 discover output. Ranked candidates only — a human promotes one to fundingIndexUrl in lib/colleges.ts.",
+  "generated_at": "2026-07-29T15:30:36.019Z",
+  "colleges": [
+    {
+      "slug": "christs",
+      "name": "Christ's College",
+      "url": "https://www.christs.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.christs.cam.ac.uk/international-students/financial-support",
+          "text": "financial support for non-uk students",
+          "title": "Financial support for overseas students | Christs College Cambridge",
+          "linkScore": 24,
+          "contentScore": 36,
+          "total": 60,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.christs.cam.ac.uk/admissions/undergraduate-admissions/finances/financial-support-home-students",
+          "text": "financial support",
+          "title": "Financial Support (Home students) | Christs College Cambridge",
+          "linkScore": 24,
+          "contentScore": 28,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.christs.cam.ac.uk/admissions/postgraduate-admissions/postgraduate-funding-opportunities",
+          "text": "postgraduate funding opportunities",
+          "title": "Postgraduate Funding Opportunities | Christs College Cambridge",
+          "linkScore": 12,
+          "contentScore": 36,
+          "total": 48,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.christs.cam.ac.uk/organ-scholarships-christs",
+          "text": "organ scholars",
+          "title": "Organ Scholarships at Christ&#039;s | Christs College Cambridge",
+          "linkScore": 12,
+          "contentScore": 8,
+          "total": 20,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "churchill",
+      "name": "Churchill College",
+      "url": "https://www.chu.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 5000,
+        "namesUsExplicitly": false,
+        "disallowRules": 2
+      },
+      "candidates": [
+        {
+          "url": "https://www.chu.cam.ac.uk/about/student-support/",
+          "text": "student support",
+          "title": "Student support - Churchill College",
+          "linkScore": 27,
+          "contentScore": 28,
+          "total": 55,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "clare",
+      "name": "Clare College",
+      "url": "https://www.clare.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.clare.cam.ac.uk/admissions-outreach/undergraduate-study/life-clare/funding-your-studies",
+          "text": "funding your studies",
+          "title": "Funding Your Studies | Clare College - Cambridge University",
+          "linkScore": 12,
+          "contentScore": 36,
+          "total": 48,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.clare.cam.ac.uk/admissions-outreach/postgraduate-study/funding-your-studies",
+          "text": "funding your studies",
+          "title": "Funding Your Postgraduate Studies | Clare College - Cambridge University",
+          "linkScore": 12,
+          "contentScore": 21,
+          "total": 33,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.clare.cam.ac.uk/about/news/college-news/river-wing-shortlisted-2026-stirling-prize",
+          "text": "",
+          "title": "River Wing shortlisted for the 2026 Stirling Prize | Clare College - Cambridge University",
+          "linkScore": 8,
+          "contentScore": 4,
+          "total": 12,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "clare-hall",
+      "name": "Clare Hall",
+      "url": "https://www.clarehall.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 1
+      },
+      "candidates": [
+        {
+          "url": "https://www.clarehall.cam.ac.uk/funding/",
+          "text": "funding",
+          "title": "Funding - Clare Hall",
+          "linkScore": 12,
+          "contentScore": 36,
+          "total": 48,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.clarehall.cam.ac.uk/news/efthymia-kostaki-wins-su-cambridge-excellence-award-for-academic-representation/",
+          "text": "efthymia kostaki wins su cambridge excellence award for academic representation",
+          "title": "Efthymia Kostaki wins SU Cambridge Excellence Award for academic representation - Clare Hall",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.clarehall.cam.ac.uk/news/clare-hall-night-porter-recognised-with-su-cambridge-excellence-award-nomination/",
+          "text": "clare hall night porter recognised with su cambridge excellence award nomination",
+          "title": "Clare Hall Night Porter recognised with SU Cambridge Excellence Award nomination - Clare Hall",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.clarehall.cam.ac.uk/news/clare-hall-phd-student-receives-isfoe-young-researcher-award/",
+          "text": "clare hall phd student receives isfoe young researcher award",
+          "title": "Clare Hall PhD student receives ISFOE Young Researcher Award - Clare Hall",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "corpus-christi",
+      "name": "Corpus Christi College",
+      "url": "https://www.corpus.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.corpus.cam.ac.uk/postgraduate-study/postgraduate-scholarships",
+          "text": "scholarships",
+          "title": "Postgraduate Scholarships | Corpus Christi College University of Cambridge",
+          "linkScore": 18,
+          "contentScore": 21,
+          "total": 39,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.corpus.cam.ac.uk/postgraduate-study/scholarships/postgraduate-fees-and-costs",
+          "text": "postgraduate fees and costs",
+          "title": "Postgraduate Fees and Costs | Corpus Christi College University of Cambridge",
+          "linkScore": 12,
+          "contentScore": 16,
+          "total": 28,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.corpus.cam.ac.uk/undergraduate-study/applying-corpus/organ-and-choral-awards",
+          "text": "organ and choral awards",
+          "title": "Organ and Choral Awards | Corpus Christi College University of Cambridge",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "darwin",
+      "name": "Darwin College",
+      "url": "https://www.darwin.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 1
+      },
+      "candidates": [],
+      "note": null
+    },
+    {
+      "slug": "downing",
+      "name": "Downing College",
+      "url": "https://www.dow.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.dow.cam.ac.uk/current-students/finances-bursaries-and-awards",
+          "text": "finances, bursaries and awards",
+          "title": "Finances, bursaries and awards | Downing College Cambridge",
+          "linkScore": 33,
+          "contentScore": 4,
+          "total": 37,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.dow.cam.ac.uk/postgraduate-study/apply-downing-postgraduates",
+          "text": "fees &amp; funding",
+          "title": "Apply to Downing | Downing College Cambridge",
+          "linkScore": 4,
+          "contentScore": 13,
+          "total": 17,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "emmanuel",
+      "name": "Emmanuel College",
+      "url": "https://www.emma.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 0
+      },
+      "candidates": [
+        {
+          "url": "https://www.emma.cam.ac.uk/admissions/postgraduates/funding",
+          "text": "funding",
+          "title": "Postgraduate Funding  | Emmanuel College",
+          "linkScore": 12,
+          "contentScore": 15,
+          "total": 27,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "fitzwilliam",
+      "name": "Fitzwilliam College",
+      "url": "https://www.fitz.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.fitz.cam.ac.uk/north-west-student-bursary-faq",
+          "text": "click here to learn more.",
+          "title": "North West Student Bursary FAQ | Fitzwilliam College, Cambridge | College of the University of Cambridge",
+          "linkScore": 16,
+          "contentScore": 16,
+          "total": 32,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "girton",
+      "name": "Girton College",
+      "url": "https://www.girton.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.girton.cam.ac.uk/postgraduates/fees-and-funding",
+          "text": "funding for new postgraduates",
+          "title": "Funding for Prospective Postgraduates | Girton College",
+          "linkScore": 28,
+          "contentScore": 36,
+          "total": 64,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.girton.cam.ac.uk/postgraduates/financial-support",
+          "text": "financial support",
+          "title": "Financial Support | Girton College",
+          "linkScore": 24,
+          "contentScore": 16,
+          "total": 40,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.girton.cam.ac.uk/undergraduates/financial-support",
+          "text": "financial support",
+          "title": "Financial Support | Girton College",
+          "linkScore": 24,
+          "contentScore": 4,
+          "total": 28,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.girton.cam.ac.uk/competitions-and-prizes",
+          "text": "competitions and prizes",
+          "title": "Girton College Competitions &amp; prizes | Girton College",
+          "linkScore": 12,
+          "contentScore": 9,
+          "total": 21,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.girton.cam.ac.uk/undergraduates/costs-and-funding",
+          "text": "costs and funding",
+          "title": null,
+          "linkScore": 12,
+          "contentScore": null,
+          "total": 12,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.girton.cam.ac.uk/news/ASME-best-paper",
+          "text": "girton fellow wins asme best paper award 27/07/2026",
+          "title": null,
+          "linkScore": 3,
+          "contentScore": null,
+          "total": 3,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "gonville-caius",
+      "name": "Gonville & Caius College",
+      "url": "https://www.cai.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.cai.cam.ac.uk/apply-caius/undergraduates/overseas-scholarships",
+          "text": "overseas scholarships",
+          "title": "Overseas scholarships | Gonville &amp; Caius",
+          "linkScore": 18,
+          "contentScore": 20,
+          "total": 38,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.cai.cam.ac.uk/apply-caius/postgraduates/postgraduate-studentships",
+          "text": "postgraduate studentships",
+          "title": "Postgraduate studentships | Gonville &amp; Caius",
+          "linkScore": 21,
+          "contentScore": 15,
+          "total": 36,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.cai.cam.ac.uk/living-here/music/music-prizes",
+          "text": "music prizes",
+          "title": "Music Prizes | Gonville &amp; Caius",
+          "linkScore": 12,
+          "contentScore": 15,
+          "total": 27,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.cai.cam.ac.uk/living-here/music/choral-and-organ-awards",
+          "text": "choral and organ awards",
+          "title": "Choral and Organ Awards | Gonville &amp; Caius",
+          "linkScore": 9,
+          "contentScore": 8,
+          "total": 17,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.cai.cam.ac.uk/living-here/music/instrumental-awards",
+          "text": "instrumental awards",
+          "title": null,
+          "linkScore": 9,
+          "contentScore": null,
+          "total": 9,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.cai.cam.ac.uk/apply-caius/postgraduates/postgraduate-costs-and-funding",
+          "text": "postgraduate costs",
+          "title": null,
+          "linkScore": 8,
+          "contentScore": null,
+          "total": 8,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "homerton",
+      "name": "Homerton College",
+      "url": "https://www.homerton.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 0
+      },
+      "candidates": [
+        {
+          "url": "https://www.homerton.cam.ac.uk/current-members/students/prizes-and-scholarships",
+          "text": "prizes and scholarships",
+          "title": "Prizes and Scholarships",
+          "linkScore": 30,
+          "contentScore": 44,
+          "total": 74,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.homerton.cam.ac.uk/current-members/students/financial-support",
+          "text": "financial support",
+          "title": "Financial Support",
+          "linkScore": 24,
+          "contentScore": 44,
+          "total": 68,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.homerton.cam.ac.uk/current-members/students/financial-support/applications-forms-grants-financial-support",
+          "text": "application forms &amp; grants for financial support",
+          "title": "Applications forms &amp; Grants for financial support",
+          "linkScore": 39,
+          "contentScore": 8,
+          "total": 47,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.homerton.cam.ac.uk/current-members/students/financial-support/finances-faq",
+          "text": "finances faq",
+          "title": "Finances FAQ",
+          "linkScore": 16,
+          "contentScore": 16,
+          "total": 32,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.homerton.cam.ac.uk/study-here/postgraduate-study/fees-funding",
+          "text": "fees &amp; funding",
+          "title": null,
+          "linkScore": 12,
+          "contentScore": null,
+          "total": 12,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.homerton.cam.ac.uk/health-and-wellbeing-hub/student-wellbeing/finance-tutor",
+          "text": "finance tutor",
+          "title": null,
+          "linkScore": 6,
+          "contentScore": null,
+          "total": 6,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "hughes-hall",
+      "name": "Hughes Hall",
+      "url": "https://www.hughes.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 1
+      },
+      "candidates": [
+        {
+          "url": "https://www.hughes.cam.ac.uk/applying/scholarships-bursaries/",
+          "text": "scholarships and bursaries",
+          "title": "Scholarships and bursaries - Hughes Hall",
+          "linkScore": 42,
+          "contentScore": 28,
+          "total": 70,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.hughes.cam.ac.uk/student-centre/academic/funding-and-prizes/",
+          "text": "funding, grants and prizes",
+          "title": "Funding, grants and prizes - Hughes Hall",
+          "linkScore": 29,
+          "contentScore": 28,
+          "total": 57,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.hughes.cam.ac.uk/student-centre/welfare/financial-support/",
+          "text": "financial assistance",
+          "title": "Financial assistance - Hughes Hall",
+          "linkScore": 24,
+          "contentScore": 15,
+          "total": 39,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.hughes.cam.ac.uk/applying/fees-and-finance/",
+          "text": "fees and finance",
+          "title": "Fees and finance - Hughes Hall",
+          "linkScore": 6,
+          "contentScore": 20,
+          "total": 26,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "jesus",
+      "name": "Jesus College",
+      "url": "https://www.jesus.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 33
+      },
+      "candidates": [
+        {
+          "url": "https://www.jesus.cam.ac.uk/college/postgraduate/finance-funding-costs-and-charges/scholarships-and-bursaries",
+          "text": "scholarships and bursaries",
+          "title": "Scholarships and Bursaries | Jesus College in the University of Cambridge",
+          "linkScore": 54,
+          "contentScore": 25,
+          "total": 79,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.jesus.cam.ac.uk/college/undergraduate/finance-bursaries-and-assistance",
+          "text": "finance, bursaries, and assistance",
+          "title": "Finance, bursaries, and assistance | Jesus College in the University of Cambridge",
+          "linkScore": 30,
+          "contentScore": 27,
+          "total": 57,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.jesus.cam.ac.uk/college/postgraduate/finance-funding-costs-and-charges",
+          "text": "finance, funding, costs and charges",
+          "title": "Finance, funding, costs and charges | Jesus College in the University of Cambridge",
+          "linkScore": 18,
+          "contentScore": 23,
+          "total": 41,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.jesus.cam.ac.uk/college/people/visiting-scholarships",
+          "text": "visiting scholarships",
+          "title": "Visiting Scholarships | Jesus College in the University of Cambridge",
+          "linkScore": 18,
+          "contentScore": 13,
+          "total": 31,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.jesus.cam.ac.uk/events/cambridge-australia-scholarship-farwell",
+          "text": "cambridge australia scholarship farwell",
+          "title": null,
+          "linkScore": 18,
+          "contentScore": null,
+          "total": 18,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.jesus.cam.ac.uk/events/centennial-celebration-harvard-cambridge-scholarships",
+          "text": "centennial celebration of harvard-cambridge scholarships",
+          "title": null,
+          "linkScore": 18,
+          "contentScore": null,
+          "total": 18,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "kings",
+      "name": "King's College",
+      "url": "https://www.kings.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 35
+      },
+      "candidates": [
+        {
+          "url": "https://www.kings.cam.ac.uk/study/undergraduate-study/finances-and-financial-support",
+          "text": "finances and financial support",
+          "title": "Finances and financial support | King&#039;s College Cambridge",
+          "linkScore": 24,
+          "contentScore": 28,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.kings.cam.ac.uk/study/graduate-study/graduate-funding",
+          "text": "graduate funding",
+          "title": "Graduate funding | King&#039;s College Cambridge",
+          "linkScore": 12,
+          "contentScore": 30,
+          "total": 42,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.kings.cam.ac.uk/news/e-lab-research-associate-awarded-aria-research-grant-innovative-project-address-climate",
+          "text": "e-lab research associate awarded aria research grant for innovative project to a",
+          "title": "E-Lab Research Associate awarded ARIA research grant for innovative project to address climate instability | King&#039;s",
+          "linkScore": 15,
+          "contentScore": 12,
+          "total": 27,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.kings.cam.ac.uk/news/quantedge-cambridge-refugee-scholarship-supports-two-new-mphil-students",
+          "text": "quantedge-cambridge refugee scholarship supports two new mphil students",
+          "title": "Quantedge-Cambridge Refugee Scholarship supports two new MPhil students | King&#039;s College Cambridge",
+          "linkScore": 18,
+          "contentScore": 4,
+          "total": 22,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.kings.cam.ac.uk/news/winners-2026-entrepreneurship-prize-announced",
+          "text": "winners of 2026 entrepreneurship prize announced",
+          "title": null,
+          "linkScore": 12,
+          "contentScore": null,
+          "total": 12,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.kings.cam.ac.uk/news/kings-receives-new-government-funding-reduce-water-use",
+          "text": "king&#039;s receives new government funding to reduce water use",
+          "title": null,
+          "linkScore": 12,
+          "contentScore": null,
+          "total": 12,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "lucy-cavendish",
+      "name": "Lucy Cavendish College",
+      "url": "https://www.lucy.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.lucy.cam.ac.uk/study-us/postgraduates/scholarships-and-awards",
+          "text": "scholarships and awards",
+          "title": "Scholarships and awards for postgraduates | Lucy Cavendish",
+          "linkScore": 27,
+          "contentScore": 33,
+          "total": 60,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.lucy.cam.ac.uk/study-us/undergraduates/scholarships-and-awards",
+          "text": "scholarships and awards",
+          "title": "Scholarships and awards for undergraduates | Lucy Cavendish",
+          "linkScore": 27,
+          "contentScore": 25,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.lucy.cam.ac.uk/give-lucy/student-support",
+          "text": "student support",
+          "title": "Student support | Lucy Cavendish",
+          "linkScore": 27,
+          "contentScore": 4,
+          "total": 31,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.lucy.cam.ac.uk/news/lucy-phd-student-wins-2026-dr-amit-bhasin-prize",
+          "text": "lucy phd student wins the 2026 dr amit bhasin prize engineering phd student, par",
+          "title": "Lucy PhD student wins the 2026 Dr Amit Bhasin Prize | Lucy Cavendish",
+          "linkScore": 12,
+          "contentScore": 4,
+          "total": 16,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.lucy.cam.ac.uk/news/lucy-alum-named-among-most-impactful-award-recipients-faculty-future-programme",
+          "text": "lucy alum named among the most impactful award recipients of the faculty for the",
+          "title": null,
+          "linkScore": 9,
+          "contentScore": null,
+          "total": 9,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.lucy.cam.ac.uk/fictionprize",
+          "text": "fiction prize",
+          "title": null,
+          "linkScore": 4,
+          "contentScore": null,
+          "total": 4,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "magdalene",
+      "name": "Magdalene College",
+      "url": "https://www.magd.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.magd.cam.ac.uk/college-life/student-support",
+          "text": "student support",
+          "title": "Student Support | Magdalene College",
+          "linkScore": 27,
+          "contentScore": 4,
+          "total": 31,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.magd.cam.ac.uk/index%2Ephp/news/peckard-prize-winner-2026",
+          "text": "news 22 jul 2026 peckard prize winner 2026 congratulations to ms anna viehhauser",
+          "title": "Peckard Prize Winner 2026 | Magdalene College",
+          "linkScore": 12,
+          "contentScore": 4,
+          "total": 16,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "murray-edwards",
+      "name": "Murray Edwards College",
+      "url": "https://www.murrayedwards.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/study-us/scholarships-awards",
+          "text": "scholarships &amp; awards",
+          "title": "Scholarships &amp; Awards | Murray Edwards College",
+          "linkScore": 27,
+          "contentScore": 33,
+          "total": 60,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/study-us/financial-support",
+          "text": "financial support",
+          "title": "Financial support | Murray Edwards College",
+          "linkScore": 24,
+          "contentScore": 28,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/college-news/eloise-eisenberg-awarded-robin-hammond-prize-english",
+          "text": "eloise eisenberg awarded the robin hammond prize in english",
+          "title": "Eloise Eisenberg awarded the Robin Hammond Prize in English | Murray Edwards College",
+          "linkScore": 12,
+          "contentScore": 11,
+          "total": 23,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/college-news/professor-charles-forsdick-honoured-david-crystal-prize",
+          "text": "professor charles forsdick honoured with david crystal prize",
+          "title": "Professor Charles Forsdick honoured with David Crystal Prize | Murray Edwards College",
+          "linkScore": 12,
+          "contentScore": 11,
+          "total": 23,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/college-news/ruohan-qins-team-win-2026-eduventures-program-innovation-award",
+          "text": "ruohan qin&#039;s team win 2026 eduventures program innovation award",
+          "title": null,
+          "linkScore": 9,
+          "contentScore": null,
+          "total": 9,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.murrayedwards.cam.ac.uk/college-news/double-honours-emily-smith-award-winning-research-opens-door-tasmania",
+          "text": "double honours for emily smith as award-winning research opens door to tasmania",
+          "title": null,
+          "linkScore": 9,
+          "contentScore": null,
+          "total": 9,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "newnham",
+      "name": "Newnham College",
+      "url": "https://newn.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 33
+      },
+      "candidates": [
+        {
+          "url": "https://newn.cam.ac.uk/study-here/undergraduates/bursaries-grants-scholarships",
+          "text": "bursaries, grants &amp; scholarships",
+          "title": "Bursaries, grants &amp; scholarships | Newnham College",
+          "linkScore": 57,
+          "contentScore": 36,
+          "total": 93,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://newn.cam.ac.uk/study-here/postgraduates/funding-financial-support/postgraduate-scholarships",
+          "text": "postgraduate scholarships",
+          "title": "Postgraduate scholarships | Newnham College",
+          "linkScore": 42,
+          "contentScore": 33,
+          "total": 75,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://newn.cam.ac.uk/study-here/postgraduates/funding-financial-support/postgraduate-grants",
+          "text": "postgraduate grants",
+          "title": "Postgraduate grants | Newnham College",
+          "linkScore": 39,
+          "contentScore": 36,
+          "total": 75,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://newn.cam.ac.uk/study-here/postgraduates/funding-financial-support/postgraduate-awards-prizes",
+          "text": "postgraduate awards &amp; prizes",
+          "title": "Postgraduate awards &amp; prizes | Newnham College",
+          "linkScore": 45,
+          "contentScore": 24,
+          "total": 69,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://newn.cam.ac.uk/study-here/postgraduates/funding-financial-support",
+          "text": "funding &amp; financial support",
+          "title": null,
+          "linkScore": 36,
+          "contentScore": null,
+          "total": 36,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://newn.cam.ac.uk/student-hub/support/financial-support",
+          "text": "financial support",
+          "title": null,
+          "linkScore": 24,
+          "contentScore": null,
+          "total": 24,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "pembroke",
+      "name": "Pembroke College",
+      "url": "https://www.pem.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.pem.cam.ac.uk/study-here/postgraduate/funding-your-studies",
+          "text": "funding your studies",
+          "title": "Funding your studies | Pembroke",
+          "linkScore": 12,
+          "contentScore": 28,
+          "total": 40,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.pem.cam.ac.uk/current-students/finance-information",
+          "text": "finance information",
+          "title": "Finance Information | Pembroke",
+          "linkScore": 6,
+          "contentScore": 8,
+          "total": 14,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "peterhouse",
+      "name": "Peterhouse",
+      "url": "https://www.pet.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [],
+      "note": null
+    },
+    {
+      "slug": "queens",
+      "name": "Queens' College",
+      "url": "https://www.queens.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 1
+      },
+      "candidates": [
+        {
+          "url": "https://www.queens.cam.ac.uk/teaching-and-learning/distinctions-and-awards/",
+          "text": "distinctions and awards",
+          "title": "Distinctions and Awards - Queens' College",
+          "linkScore": 9,
+          "contentScore": 17,
+          "total": 26,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.queens.cam.ac.uk/about-us/news-events/postgraduate-scholarship-the-ogden-scholarship-in-ames-chinese-studies/",
+          "text": "postgraduate scholarship: the ogden scholarship in ames (chinese studies)",
+          "title": "Postgraduate Scholarship: The Ogden Scholarship in AMES (Chinese Studies) - Queens' College",
+          "linkScore": 18,
+          "contentScore": 4,
+          "total": 22,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "robinson",
+      "name": "Robinson College",
+      "url": "https://www.robinson.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.robinson.cam.ac.uk/prospective-students/undergraduate/bursaries-and-scholarships",
+          "text": "bursaries and scholarships",
+          "title": "Bursaries and Scholarships | Robinson College",
+          "linkScore": 42,
+          "contentScore": 20,
+          "total": 62,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.robinson.cam.ac.uk/college-life/student-support",
+          "text": "student support",
+          "title": "Student Support at Robinson | Robinson College",
+          "linkScore": 27,
+          "contentScore": 8,
+          "total": 35,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.robinson.cam.ac.uk/prospective-students/postgraduate/sykes-studentship",
+          "text": "sykes studentship",
+          "title": "Sykes Studentship | Robinson College",
+          "linkScore": 21,
+          "contentScore": 13,
+          "total": 34,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.robinson.cam.ac.uk/conferences/service/service-guarantees-and-awards",
+          "text": "service guarantees and awards",
+          "title": "Service Guarantees and Awards | Robinson College",
+          "linkScore": 9,
+          "contentScore": 0,
+          "total": 9,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.robinson.cam.ac.uk/college-life/academic-life/finance-and-expenses",
+          "text": "finance and expenses",
+          "title": null,
+          "linkScore": 6,
+          "contentScore": null,
+          "total": 6,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.robinson.cam.ac.uk/college-life/finance",
+          "text": "finance",
+          "title": null,
+          "linkScore": 6,
+          "contentScore": null,
+          "total": 6,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "st-catharines",
+      "name": "St Catharine's College",
+      "url": "https://www.caths.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.caths.cam.ac.uk/study-us/postgraduate-study/current/University-hardship",
+          "text": "postgraduate funding &amp; financial support",
+          "title": "Postgraduate prospectus | St Catharine&#039;s College, Cambridge",
+          "linkScore": 32,
+          "contentScore": 20,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.caths.cam.ac.uk/study-us/undergraduate-study/financial-and-other-support/finlay-family-bursary-for-scottish-undergraduates",
+          "text": "finlay family bursary for scottish undergraduates",
+          "title": "The Finlay Family Bursary for Scottish undergraduates | St Catharine&#039;s College, Cambridge",
+          "linkScore": 24,
+          "contentScore": 28,
+          "total": 52,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.caths.cam.ac.uk/college-life/music/music-awards",
+          "text": "scholarships",
+          "title": "Music awards | St Catharine&#039;s College, Cambridge",
+          "linkScore": 12,
+          "contentScore": 19,
+          "total": 31,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.caths.cam.ac.uk/study-us/undergraduate-study/how-apply/music-awards",
+          "text": "music awards",
+          "title": "Music awards | St Catharine&#039;s College, Cambridge",
+          "linkScore": 9,
+          "contentScore": 13,
+          "total": 22,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "st-edmunds",
+      "name": "St Edmund's College",
+      "url": "https://www.st-edmunds.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 1
+      },
+      "candidates": [
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/study-here/postgraduates/postgraduate-funding/randeree-scholarship/",
+          "text": "the agm randeree scholarship",
+          "title": "The AGM Randeree Scholarship - St Edmund&#039;s College",
+          "linkScore": 26,
+          "contentScore": 21,
+          "total": 47,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/study-here/undergraduates/undergraduate-funding/",
+          "text": "undergraduate funding",
+          "title": "Undergraduate Funding - St Edmund&#039;s College",
+          "linkScore": 12,
+          "contentScore": 32,
+          "total": 44,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/study-here/postgraduates/postgraduate-funding/",
+          "text": "postgraduate funding",
+          "title": "Postgraduate Funding - St Edmund&#039;s College",
+          "linkScore": 12,
+          "contentScore": 28,
+          "total": 40,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/student-wins-alexander-pike-prize-for-outstanding-research-on-urban-heatwave-inequality/",
+          "text": "all news 22 july 2026 student wins alexander pike prize for outstanding research",
+          "title": "Student wins Alexander Pike Prize for outstanding research on urban heatwave inequality - St Edmund&#039;s College",
+          "linkScore": 12,
+          "contentScore": 4,
+          "total": 16,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/study-here/undergraduates/fees-funding/",
+          "text": "undergraduate fees",
+          "title": null,
+          "linkScore": 8,
+          "contentScore": null,
+          "total": 8,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.st-edmunds.cam.ac.uk/study-here/postgraduates/fees-funding/",
+          "text": "postgraduate fees",
+          "title": null,
+          "linkScore": 8,
+          "contentScore": null,
+          "total": 8,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "st-johns",
+      "name": "St John's College",
+      "url": "https://www.joh.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 0
+      },
+      "candidates": [
+        {
+          "url": "https://www.joh.cam.ac.uk/apply/financial-support",
+          "text": "financial support",
+          "title": "Financial Support - St John&#x27;s College, Cambridge",
+          "linkScore": 24,
+          "contentScore": 4,
+          "total": 28,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.joh.cam.ac.uk/apply/external-awards",
+          "text": "external awards",
+          "title": "External Awards - St John&#x27;s College, Cambridge",
+          "linkScore": 9,
+          "contentScore": 11,
+          "total": 20,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.joh.cam.ac.uk/about-us/news-and-research/pioneering-mathematician-wins-award-for-extraordinary-world-leading-research",
+          "text": "pioneering mathematician wins award for ‘extraordinary’ world-leading research",
+          "title": "Pioneering mathematician wins award for ‘extraordinary’ world-leading research  - St John&#x27;s College, Cambridge",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "selwyn",
+      "name": "Selwyn College",
+      "url": "https://www.sel.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.sel.cam.ac.uk/news/strengthening-student-support",
+          "text": "",
+          "title": "Strengthening student support | Selwyn College",
+          "linkScore": 18,
+          "contentScore": 0,
+          "total": 18,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "sidney-sussex",
+      "name": "Sidney Sussex College",
+      "url": "https://www.sid.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.sid.cam.ac.uk/apply/postgraduate-study/studentships-and-funding",
+          "text": "studentships and funding",
+          "title": "Postgraduate studentships and funding | Sidney Sussex College Cambridge",
+          "linkScore": 33,
+          "contentScore": 41,
+          "total": 74,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.sid.cam.ac.uk/apply/undergraduate-study/covering-costs/finance-and-funding",
+          "text": "finance and funding",
+          "title": "Finance and Funding | Sidney Sussex College Cambridge",
+          "linkScore": 18,
+          "contentScore": 28,
+          "total": 46,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.sid.cam.ac.uk/choir/about/organ-scholarship",
+          "text": "organ scholarship",
+          "title": "Organ Scholarship | Sidney Sussex College Cambridge",
+          "linkScore": 18,
+          "contentScore": 8,
+          "total": 26,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "trinity",
+      "name": "Trinity College",
+      "url": "https://www.trin.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 0
+      },
+      "candidates": [
+        {
+          "url": "https://www.trin.cam.ac.uk/undergraduate/finance/financial-support/",
+          "text": "financial support",
+          "title": "Financial Support - Trinity College Cambridge",
+          "linkScore": 28,
+          "contentScore": 28,
+          "total": 56,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trin.cam.ac.uk/postgraduate/funding-awards/",
+          "text": "funding awards",
+          "title": "Trinity Postgraduate Student Funding Awards - Trinity College Cambridge",
+          "linkScore": 21,
+          "contentScore": 35,
+          "total": 56,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trin.cam.ac.uk/postgraduate/funding-and-finance/",
+          "text": "postgraduate funding and finance",
+          "title": "Postgraduate Funding and Finance - Trinity College Cambridge",
+          "linkScore": 18,
+          "contentScore": 13,
+          "total": 31,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trin.cam.ac.uk/access/help-and-advice/financial-support/",
+          "text": "financial support",
+          "title": null,
+          "linkScore": 24,
+          "contentScore": 0,
+          "total": 24,
+          "httpStatus": 404,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trin.cam.ac.uk/postgraduate/funding-awards/faqs/",
+          "text": "faqs",
+          "title": null,
+          "linkScore": 14,
+          "contentScore": null,
+          "total": 14,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trin.cam.ac.uk/undergraduate/essay-prizes/",
+          "text": "essay prizes",
+          "title": null,
+          "linkScore": 12,
+          "contentScore": null,
+          "total": 12,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "trinity-hall",
+      "name": "Trinity Hall",
+      "url": "https://www.trinhall.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 10000,
+        "namesUsExplicitly": false,
+        "disallowRules": 7
+      },
+      "candidates": [
+        {
+          "url": "https://www.trinhall.cam.ac.uk/study-with-us/postgraduate-study/postgraduate-research-studentships/",
+          "text": "postgraduate studentships",
+          "title": "Postgraduate Studentships - Trinity Hall Cambridge",
+          "linkScore": 21,
+          "contentScore": 30,
+          "total": 51,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trinhall.cam.ac.uk/study-with-us/postgraduate-study/postgraduate-research-studentships/studentship-faqs/",
+          "text": "studentship faqs",
+          "title": "Studentship FAQs - Trinity Hall Cambridge",
+          "linkScore": 21,
+          "contentScore": 30,
+          "total": 51,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trinhall.cam.ac.uk/study-with-us/undergraduate-study/fees-and-finance-overview/financial-support/",
+          "text": "financial support",
+          "title": "Financial Support - Trinity Hall Cambridge",
+          "linkScore": 28,
+          "contentScore": 8,
+          "total": 36,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trinhall.cam.ac.uk/news/innovators-tackling-hunger-mental-health-and-social-challenges-win-cambridge-social-innovation-prize/",
+          "text": "innovators tackling hunger, mental health and social challenges win cambridge so",
+          "title": "Innovators tackling hunger, mental health and social challenges win Cambridge Social Innovation Prize - Trinity Hall Cam",
+          "linkScore": 12,
+          "contentScore": 11,
+          "total": 23,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trinhall.cam.ac.uk/about/music/music-awards/",
+          "text": "music awards",
+          "title": null,
+          "linkScore": 9,
+          "contentScore": null,
+          "total": 9,
+          "httpStatus": null,
+          "blocked": false
+        },
+        {
+          "url": "https://www.trinhall.cam.ac.uk/study-with-us/undergraduate-study/fees-and-finance-overview/",
+          "text": "fees and finance",
+          "title": null,
+          "linkScore": 6,
+          "contentScore": null,
+          "total": 6,
+          "httpStatus": null,
+          "blocked": false
+        }
+      ],
+      "note": null
+    },
+    {
+      "slug": "wolfson",
+      "name": "Wolfson College",
+      "url": "https://www.wolfson.cam.ac.uk",
+      "robots": {
+        "crawlDelayMs": 1100,
+        "namesUsExplicitly": false,
+        "disallowRules": 34
+      },
+      "candidates": [
+        {
+          "url": "https://www.wolfson.cam.ac.uk/news/wolfson-fellow-wins-lecturer-year-award",
+          "text": "13/07/2026 wolfson fellow wins lecturer of the year award",
+          "title": "Wolfson Fellow wins Lecturer of the Year Award | Wolfson",
+          "linkScore": 9,
+          "contentScore": 4,
+          "total": 13,
+          "httpStatus": 200,
+          "blocked": false
+        }
+      ],
+      "note": null
+    }
+  ]
+}
