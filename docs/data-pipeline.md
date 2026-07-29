@@ -82,8 +82,8 @@ build — on the scraper's own pull request, not in front of a student.
 ## What the first real crawl changed (2026-07-29)
 
 Three colleges were discovered, fetched and extracted by hand as a spike
-before committing to the full pipeline. Four findings, each of which is now
-encoded somewhere rather than written down here only.
+before committing to the full pipeline, then discovery was generalised to all
+31. Six findings, each now encoded somewhere rather than written down here only.
 
 **1. "Recurs annually" was wrong for most recurring awards.**
 Of the ten recurring awards found, three were *termly* (Newnham's book grants,
@@ -101,8 +101,9 @@ to a student, and money coming from a donor. Colleges publish far more of the
 latter. `scripts/discover-funding-pages.mjs` therefore scores both ways, with
 donor vocabulary (donate, giving, legacy, alumni, campaign, benefactor)
 *subtracting*. Darwin College is the proof: the only funding-shaped links on its
-homepage are `/alumni-and-supporters/donate/` and the campaign page, so it
-correctly returns **zero** candidates rather than a confident wrong answer.
+homepage are `/alumni-and-supporters/donate/` and the campaign page, so the
+homepage pass returns **zero** rather than a confident wrong answer — and the
+crawl-depth fallback below then finds the real page at `/study/awards/`.
 
 **3. One line of CMS boilerplate can fence off a whole college.**
 Newnham runs Drupal, whose stock robots.txt disallows a path containing a
@@ -111,10 +112,33 @@ matches every URL *and* wins the longest-match tie-break — the crawler silentl
 skips a college that never asked it to. `test/robots.test.mjs` pins the correct
 wildcard semantics, along with crawl-delay precedence and named-agent groups.
 
-**4. Homepage-only discovery reaches 29 of 31 colleges.**
-Darwin and Peterhouse do not link student funding from their homepage at all.
-That is a crawl-depth problem, not a scoring one: the next step for those two is
-a sitemap fallback or a second-level crawl, not looser keywords.
+**4. Coverage is 31 of 31, but only after adding crawl depth.**
+The homepage pass alone reached 29. Darwin and Peterhouse do not link student
+funding from their homepage at all — a crawl-depth problem, not a scoring one,
+so the fix was more URLs rather than looser keywords (loosening them would just
+promote the donation pages the scoring exists to reject). Two fallbacks now fire
+when the homepage pass scores below 30: the site sitemap, then one hop through
+the homepage own section pages. Final routes: 8 homepage-only, 8 sitemap,
+7 second-level, 8 both. Only Emmanuel still scores under 30, and its page
+(/admissions/postgraduates/funding) is correct — just a short path carrying
+few signals.
+
+**5. Section noise had to become a hard exclusion, not a penalty.**
+Wolfson top hit was a news story whose URL contained "travel-grants". Penalising
+the path did not work: the article genuinely lists amounts, eligibility and how
+to apply, so it earned those content points honestly and climbed back to the top.
+The page is disqualified by what it IS — an article — not by how it reads. News,
+blog, event, person and dated paths are now excluded outright, and the count of
+dropped URLs is reported per college (443 across the 31), because a silent filter
+reads as "this college has no funding page" when it may mean the opposite.
+
+**6. Scoring lives in scripts/lib/score.mjs so it can be tested.**
+A regex that silently matches nothing looks identical to one that works. A shell
+heredoc ate the word-boundary escapes during development, turning the news filter
+into a pattern containing literal backspace characters — it compiled, ran, matched
+nothing, and raised no error. test/discovery-score.test.mjs asserts against the
+real URLs that shaped each rule, and fails outright on any signal containing a
+control character.
 
 ## Scraper contract (Phases 1–3, not yet built)
 

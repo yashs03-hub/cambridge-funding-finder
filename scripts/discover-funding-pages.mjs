@@ -22,104 +22,26 @@
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { politeFetch, robotsFor } from './lib/polite-fetch.mjs';
+import { sitemapUrls, secondLevelUrls } from './lib/deep-discover.mjs';
+import {
+  CONTENT_SIGNALS,
+  isNoisePath,
+  score,
+  scoreCandidate,
+  textOf,
+  extractLinks,
+} from './lib/score.mjs';
+
+/**
+ * Below this score the homepage pass has not really found anything — the top
+ * hit at Selwyn (18) and Wolfson (13) was a news article about someone winning
+ * an award. Those trigger the sitemap / second-level fallback.
+ */
+const WEAK_SCORE = 30;
 
 const ROOT = new URL('..', import.meta.url);
 
-// ── Signals ────────────────────────────────────────────────────────────
-// Weighted: a path segment is a stronger signal than a word in link text,
-// and "hardship"/"travel grant" are far more specific than bare "funding".
-const STUDENT_TERMS = [
-  [/\bhardship\b/, 10],
-  [/\btravel\s*grant/, 10],
-  [/\bbursar(y|ies)\b/, 8],
-  [/\bstudentship/, 7],
-  [/\bscholarship/, 6],
-  [/\bfinancial\s+(support|assistance|aid)\b/, 8],
-  [/\bstudent\s+(funding|finance|support)\b/, 9],
-  [/\bfees?\s+and\s+funding\b/, 8],
-  [/\bgrants?\b/, 5],
-  [/\bprize/, 4],
-  [/\bfunding\b/, 4],
-  [/\bawards?\b/, 3],
-  [/\bfinance\b/, 2],
-];
-
-// Subtracted. These are the fundraising side of the same vocabulary.
-const DONOR_TERMS = [
-  [/\bdonat/, 12],
-  [/\bgiving\b/, 12],
-  [/\blegac(y|ies)\b/, 10],
-  [/\bbequest/, 10],
-  [/\bdevelopment\s+(office|team)\b/, 10],
-  [/\balumni\b/, 6],
-  [/\bsupport\s+(us|the\s+college)\b/, 10],
-  [/\bfundrais/, 12],
-  [/\bmake\s+a\s+gift\b/, 12],
-  [/\bcampaign\b/, 5],
-  [/\bbenefact/, 8],
-  [/\bendowment\b/, 4],
-  [/\bvacanc(y|ies)\b/, 8], // staff pay pages match "salary"/"grant" surprisingly often
-];
-
-// Content-level confirmation: does the page actually describe money a
-// student can apply for? A real funding page nearly always has an amount
-// and an application verb.
-const CONTENT_SIGNALS = [
-  [/£\s?[\d,]+/, 6],
-  [/\bapply\b/i, 4],
-  [/\bapplication\b/i, 4],
-  [/\bdeadline\b/i, 8],
-  [/\beligib/i, 5],
-  [/\bclosing\s+date\b/i, 8],
-  [/\bper\s+(term|year|annum)\b/i, 3],
-];
-
-function score(text, terms) {
-  let s = 0;
-  for (const [re, w] of terms) if (re.test(text)) s += w;
-  return s;
-}
-
-/** Strip tags/scripts so content scoring sees prose, not markup. */
-function textOf(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ');
-}
-
-function extractLinks(html, baseUrl) {
-  const out = [];
-  const re = /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
-  let m;
-  while ((m = re.exec(html)) !== null) {
-    const [, href, inner] = m;
-    if (/^(mailto:|tel:|javascript:|#)/i.test(href)) continue;
-    let abs;
-    try {
-      abs = new URL(href, baseUrl);
-    } catch {
-      continue;
-    }
-    if (!/^https?:$/.test(abs.protocol)) continue;
-    abs.hash = '';
-    out.push({ url: abs.href, host: abs.host, path: abs.pathname.toLowerCase(), text: textOf(inner).trim().toLowerCase() });
-  }
-  return out;
-}
-
-function scoreCandidate(link) {
-  // The path counts double — /student-funding/ in a URL is a deliberate
-  // information-architecture decision; the same words in link text may just
-  // be a sentence.
-  const pathScore = score(link.path.replace(/[-_/]+/g, ' '), STUDENT_TERMS) * 2;
-  const textScore = score(link.text, STUDENT_TERMS);
-  const donor =
-    score(link.path.replace(/[-_/]+/g, ' '), DONOR_TERMS) * 2 + score(link.text, DONOR_TERMS);
-  return pathScore + textScore - donor;
-}
+// Signals and scoring live in ./lib/score.mjs so they can be unit-tested.
 
 const src = readFileSync(new URL('lib/colleges.ts', ROOT), 'utf8');
 const seeds = [...src.matchAll(/slug:\s*'([^']+)',\s*name:\s*(["'])(.+?)\2,\s*url:\s*'([^']+)'/g)].map(
@@ -148,6 +70,7 @@ for (const college of targets) {
       disallowRules: robots.rules.filter((r) => !r.allow).length,
     },
     candidates: [],
+    fallback: null,
     note: null,
   };
 
@@ -167,10 +90,68 @@ for (const college of targets) {
 
   const host = new URL(home.url).host;
   const seen = new Set();
-  const ranked = extractLinks(home.body, home.url)
+  let pool = extractLinks(home.body, home.url)
     .filter((l) => l.host === host)
     .filter((l) => (seen.has(l.url) ? false : (seen.add(l.url), true)))
-    .map((l) => ({ ...l, linkScore: scoreCandidate(l) }))
+    .map((l) => ({ ...l, linkScore: scoreCandidate(l) }));
+
+  let best = Math.max(0, ...pool.map((l) => l.linkScore));
+
+  // Fallback for the colleges that simply do not put funding in their top-level
+  // navigation. This is a crawl-depth gap, not a scoring one, so the answer is
+  // more URLs rather than looser keywords — loosening them here would just
+  // promote the donation pages the scoring exists to reject.
+  if (best < WEAK_SCORE) {
+    const origin = new URL(home.url).origin;
+    let extra = await sitemapUrls(origin);
+    row.fallback = extra.length ? 'sitemap' : null;
+
+    // A sitemap that only lists news (Wolfson's is 487 bytes and post-heavy)
+    // is not a useful answer, so fall through to the nav crawl as well.
+    const bestOf = (urls) =>
+      Math.max(0, ...urls.map((u) => {
+        try {
+          const p = new URL(u).pathname.toLowerCase();
+          return scoreCandidate({ url: u, host, path: p, text: '' });
+        } catch {
+          return 0;
+        }
+      }));
+
+    if (!extra.length || bestOf(extra) < WEAK_SCORE) {
+      const nav = await secondLevelUrls(origin, home.body);
+      if (nav.length) {
+        extra = extra.concat(nav);
+        row.fallback = row.fallback ? 'sitemap+second-level' : 'second-level';
+      } else if (!extra.length) {
+        row.fallback = 'none';
+      }
+    }
+
+    for (const url of extra) {
+      if (seen.has(url)) continue;
+      seen.add(url);
+      let u;
+      try {
+        u = new URL(url);
+      } catch {
+        continue;
+      }
+      if (u.host !== host) continue;
+      // No anchor text from a sitemap, so the path carries the whole signal.
+      const link = { url: u.href, host: u.host, path: u.pathname.toLowerCase(), text: '' };
+      pool.push({ ...link, linkScore: scoreCandidate(link) });
+    }
+    best = Math.max(0, ...pool.map((l) => l.linkScore));
+  }
+
+  // Count what we drop rather than dropping it quietly — a silent filter
+  // reads as "this college has no funding page" when it may mean the opposite.
+  const noisy = pool.filter((l) => isNoisePath(l) && l.linkScore > 0).length;
+  row.droppedNoisePaths = noisy;
+
+  const ranked = pool
+    .filter((l) => !isNoisePath(l))
     .filter((l) => l.linkScore > 0)
     .sort((a, b) => b.linkScore - a.linkScore)
     .slice(0, 6);
@@ -210,19 +191,41 @@ for (const college of targets) {
   const top = row.candidates[0];
   console.log(
     `ok      ${college.name.padEnd(28)} ${row.candidates.length} cand` +
+      (row.fallback ? ` [${row.fallback}]` : '') +
       (top ? `  best(${top.total}) ${top.url}` : '  — none'),
   );
 }
 
 mkdirSync(new URL('data', ROOT), { recursive: true });
+const outPath = new URL('data/discovery.json', ROOT);
+
+// Merge rather than overwrite. Running the script for two named colleges used
+// to replace the whole file with those two, so a targeted re-run silently
+// deleted the other twenty-nine — and the result still looked like a valid
+// discovery file. Re-running one college must never shrink the record.
+let previous = [];
+try {
+  previous = JSON.parse(readFileSync(outPath, 'utf8')).colleges ?? [];
+} catch {
+  /* first run */
+}
+
+const bySlug = new Map(previous.map((c) => [c.slug, c]));
+for (const r of results) bySlug.set(r.slug, r);
+
+const order = new Map(seeds.map((s, i) => [s.slug, i]));
+const merged = [...bySlug.values()].sort(
+  (a, b) => (order.get(a.slug) ?? 999) - (order.get(b.slug) ?? 999),
+);
+
 writeFileSync(
-  new URL('data/discovery.json', ROOT),
+  outPath,
   JSON.stringify(
     {
       $comment:
         'Phase 1 discover output. Ranked candidates only — a human promotes one to fundingIndexUrl in lib/colleges.ts.',
       generated_at: new Date().toISOString(),
-      colleges: results,
+      colleges: merged,
     },
     null,
     2,
@@ -231,4 +234,8 @@ writeFileSync(
 
 const withCandidates = results.filter((r) => r.candidates.length > 0).length;
 console.log(`\n${withCandidates}/${results.length} colleges produced at least one candidate`);
-console.log('→ data/discovery.json');
+console.log(
+  `→ data/discovery.json (${merged.length} colleges on file${
+    merged.length > results.length ? `, ${merged.length - results.length} kept from a previous run` : ''
+  })`,
+);

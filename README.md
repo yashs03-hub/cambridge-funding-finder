@@ -16,10 +16,11 @@ research grants, hardship funds, book and equipment grants, sizarships, music
 funds and prizes. Every record carries a verbatim `evidence_quote` from its
 source page. The sample-data banner is gone.
 
-Discovery has been generalised to all 31 colleges
-(`scripts/discover-funding-pages.mjs`); 29 produce a candidate funding page
-from their homepage alone. Extraction beyond the first three is still manual —
-the automated fetch/extract/PR loop (Phases 2–3) is not built.
+Discovery covers **all 31 colleges** (`scripts/discover-funding-pages.mjs`):
+every one now yields a ranked candidate funding page, via the homepage, the site
+sitemap, or one hop through its section pages. No college blocks us. Extraction
+beyond the first three is still manual — the automated fetch/extract/PR loop
+(Phases 2–3) is not built.
 
 | | |
 |---|---|
@@ -43,7 +44,7 @@ npm run dev          # http://localhost:3000
 file, so a fresh clone runs immediately.
 
 ```sh
-npm test             # 58 tests
+npm test             # 67 tests
 npm run typecheck
 npm run build
 ```
@@ -111,9 +112,8 @@ must not depend on specific wrap points.
 
 ## What is not built
 
-- **The rest of the scraper.** Discovery (Phase 1) is built and covers 29 of 31
-  colleges; Darwin and Peterhouse need a sitemap fallback or second-level crawl,
-  since neither links funding from its homepage. Still to build: automated
+- **The rest of the scraper.** Discovery (Phase 1) is built and covers 31 of 31
+  colleges. Still to build: automated
   extraction (HTML *and* PDF), the diff-and-open-a-PR step, and the weekly
   GitHub Actions cron. Contract in `docs/data-pipeline.md`.
 - **The assistant.** Phase 4. `/api/ask` returns a real `501` explaining this
