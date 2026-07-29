@@ -24,7 +24,15 @@ export function sampleData(now: Date = new Date()): FundingData {
   const verified = new Date(now.getTime() - 3 * DAY).toISOString();
   const scraped = verified;
 
-  const base = { status: 'approved' as const, confidence: null, last_scraped_at: scraped, last_verified_at: verified };
+  const base = {
+    status: 'approved' as const,
+    confidence: null,
+    last_scraped_at: scraped,
+    last_verified_at: verified,
+    // Default; the one recurring sample overrides it. Required on every
+    // record so the sample set exercises the same invariants as live data.
+    deadline_recurrence: null as string | null,
+  };
 
   const items: FundingItem[] = [
     {
@@ -62,6 +70,7 @@ export function sampleData(now: Date = new Date()): FundingData {
       eligibility_tags: ['Grant', 'UG', 'Any subject'],
       amount_text: '£150 / year',
       deadline_type: 'annual_recurring', deadline_date: null,
+      deadline_recurrence: 'Claimed at the end of each term',
       application_method: 'Submit receipts to the Tutorial Office.',
       source_url: 'https://www.kings.cam.ac.uk',
       evidence_quote: 'An allowance of £150 per year is available to undergraduates.',

@@ -33,7 +33,7 @@ export interface ListingView {
 function toView(item: FundingItem, now: Date): FundingItemView {
   return {
     item,
-    deadline: describeDeadline(item.deadline_type, item.deadline_date, now),
+    deadline: describeDeadline(item.deadline_type, item.deadline_date, now, item.deadline_recurrence),
     verified: verifiedAgo(item.last_verified_at, now),
     amount: amountLabel(item.amount_text),
     dot: dotClass(item.type),

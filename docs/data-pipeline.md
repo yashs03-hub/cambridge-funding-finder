@@ -69,6 +69,8 @@ award a student could act on:
 - `deadline_type = 'fixed'` **must** have an `evidence_quote`. An extraction that
   cannot quote a source sentence for its deadline records `unknown` instead of
   guessing (§4.4).
+- `deadline_type = 'annual_recurring'` **must** have a `deadline_recurrence` and
+  an `evidence_quote`. Added after the first real crawl — see below.
 
 Plus: unique ids, absolute `source_url` (it is the trust link on every card),
 `YYYY-MM-DD` dates, known enum values, and no record whose `status` is anything
@@ -76,6 +78,43 @@ other than `approved`.
 
 Validation runs at module load in `lib/data.ts`, so a malformed file fails the
 build — on the scraper's own pull request, not in front of a student.
+
+## What the first real crawl changed (2026-07-29)
+
+Three colleges were discovered, fetched and extracted by hand as a spike
+before committing to the full pipeline. Four findings, each of which is now
+encoded somewhere rather than written down here only.
+
+**1. "Recurs annually" was wrong for most recurring awards.**
+Of the ten recurring awards found, three were *termly* (Newnham's book grants,
+equipment grants and Master's research fund), four ran *from 1 January*
+(Churchill's four sizarships), and one closed on *1 June each year* (the
+Kathleen Hughes Memorial Fund). The enum name promised a cycle the data does
+not have. Records now carry `deadline_recurrence` — the source's own wording —
+and the UI prints that instead of a generic label. A recurring record that
+cannot state its cycle degrades to `unknown`, the same rule as a `fixed`
+deadline with no date. Enforced in `lib/dataset.ts` and `test/dataset.test.mjs`.
+
+**2. Funding pages compete with fundraising pages, and fundraising wins.**
+On a college website "funding" points in two opposite directions: money coming
+to a student, and money coming from a donor. Colleges publish far more of the
+latter. `scripts/discover-funding-pages.mjs` therefore scores both ways, with
+donor vocabulary (donate, giving, legacy, alumni, campaign, benefactor)
+*subtracting*. Darwin College is the proof: the only funding-shaped links on its
+homepage are `/alumni-and-supporters/donate/` and the campaign page, so it
+correctly returns **zero** candidates rather than a confident wrong answer.
+
+**3. One line of CMS boilerplate can fence off a whole college.**
+Newnham runs Drupal, whose stock robots.txt disallows a path containing a
+wildcard in the middle. Reading that as a literal prefix yields `/`, which
+matches every URL *and* wins the longest-match tie-break — the crawler silently
+skips a college that never asked it to. `test/robots.test.mjs` pins the correct
+wildcard semantics, along with crawl-delay precedence and named-agent groups.
+
+**4. Homepage-only discovery reaches 29 of 31 colleges.**
+Darwin and Peterhouse do not link student funding from their homepage at all.
+That is a crawl-depth problem, not a scoring one: the next step for those two is
+a sitemap fallback or a second-level crawl, not looser keywords.
 
 ## Scraper contract (Phases 1–3, not yet built)
 

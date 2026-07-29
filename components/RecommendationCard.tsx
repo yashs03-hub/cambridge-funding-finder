@@ -15,7 +15,7 @@ const RANK_LABEL = ['Best match', 'Second', 'Third', 'Fourth', 'Fifth'];
  */
 export function RecommendationCard({ rec, now }: { rec: Recommendation; now?: Date }) {
   const { item } = rec;
-  const deadline = describeDeadline(item.deadline_type, item.deadline_date, now);
+  const deadline = describeDeadline(item.deadline_type, item.deadline_date, now, item.deadline_recurrence);
 
   return (
     <div className="rec">
