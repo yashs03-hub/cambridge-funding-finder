@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Newsreader } from 'next/font/google';
 import { Nav } from '@/components/Nav';
 import { SampleBanner } from '@/components/SampleBanner';
-import { isSampleMode } from '@/lib/supabase';
+import { isSampleMode } from '@/lib/data';
 import './globals.css';
 
 /**

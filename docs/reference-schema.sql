@@ -1,8 +1,15 @@
 -- ══════════════════════════════════════════════════════════════════════
--- Cambridge Funding Finder — schema (spec §5)
--- Phase 0 deliverable. Apply in the Supabase SQL editor.
+-- Cambridge Funding Finder — relational form of the data model (spec §5)
 --
--- Run order:  schema.sql  →  seed_providers.sql
+-- ⚠ NOT APPLIED. This project does not use a database — the dataset is a
+-- committed JSON file. See docs/data-pipeline.md for the decision and why.
+--
+-- Kept for one reason: if reviewing is ever delegated to someone who won't
+-- use GitHub, a hosted database with a web admin becomes the better trade,
+-- and this is the schema to apply. Seed providers from lib/colleges.ts.
+--
+-- The two CHECK constraints below live on as runtime validation in
+-- lib/dataset.ts — dropping the database did not drop the invariants.
 -- ══════════════════════════════════════════════════════════════════════
 
 create extension if not exists vector;

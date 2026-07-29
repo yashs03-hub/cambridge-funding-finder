@@ -1,0 +1,6 @@
+{
+  "$comment": "The dataset. Written by the scraper, reviewed as a pull-request diff, read at build time. See docs/data-pipeline.md.",
+  "status": "placeholder",
+  "generated_at": null,
+  "items": []
+}

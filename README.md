@@ -11,15 +11,16 @@ for exactly this material. That gap is the product.
 ## Status — 2026-07-29
 
 **Next.js app scaffolded.** It builds, runs, and renders the verified light design
-system against sample data. No real funding data has been collected — the site
-runs on invented awards and says so on every page.
+system. No real funding data has been collected — the site runs on invented awards
+and says so on every page.
 
 | | |
 |---|---|
 | `docs/superpowers/specs/2026-07-28-cambridge-funding-finder-design.md` | Authoritative design spec |
+| `docs/data-pipeline.md` | Why there is no database, and the scraper contract |
 | `app/`, `components/`, `lib/` | The Next.js application |
-| `supabase/schema.sql` + `seed_providers.sql` | Phase 0 schema and the 31 seeded colleges |
-| `test/` | Design-system contrast audit + deadline/filter/seed tests |
+| `data/funding.json` | The dataset — currently a placeholder |
+| `test/` | Contrast audit, dataset validation, deadline/filter/seed tests |
 | `mockup/index.html` | The original static design mockup (superseded by the app) |
 
 ## Running it
@@ -29,38 +30,41 @@ npm install
 npm run dev          # http://localhost:3000
 ```
 
-**No configuration is required.** With `NEXT_PUBLIC_SUPABASE_URL` and
-`NEXT_PUBLIC_SUPABASE_ANON_KEY` unset, the site serves invented sample awards and
-shows the sample-data banner. Copy `.env.example` to `.env.local` to point it at a
-real database.
+**No configuration, no keys, no services.** The funding data is a committed JSON
+file, so a fresh clone runs immediately.
 
 ```sh
-npm test             # 32 tests — contrast audit, deadline logic, filters, seed list
+npm test             # 44 tests
 npm run typecheck
 npm run build
 ```
 
-## Database
+## Data
 
-Apply in the Supabase SQL editor, in order:
+There is no database. `data/funding.json` holds the dataset; the scraper will
+write it and open a pull request, and reviewing the PR diff *is* the review queue
+from §4.5. Full reasoning in [`docs/data-pipeline.md`](docs/data-pipeline.md) —
+the short version is that the spec's refresh semantics (changed → back to
+`pending` *with a diff*, disappeared → never delete) describe git, and running it
+on Postgres means rebuilding code review badly.
 
-```
-supabase/schema.sql          # tables, enums, constraints, RLS
-supabase/seed_providers.sql  # the 31 colleges (GENERATED — edit lib/colleges.ts)
-```
+The file's `status` field decides what the site serves:
 
-`seed_providers.sql` is generated: edit `lib/colleges.ts`, then run
-`node scripts/gen-seed-sql.mjs`. A test fails if the two drift apart.
+| `status` | Site serves |
+|---|---|
+| `placeholder` | Invented sample awards, behind the sample-data banner |
+| `live` | The file's items — **never** sample data, even if `items` is empty |
 
-**The review gate is enforced by RLS, not by the app.** `lib/data.ts` filters on
-`status = 'approved'`, but the anon key is public and anyone can query the REST
-endpoint directly — so the policy in `schema.sql` is what actually keeps
-unreviewed LLM extractions off the site. After applying, verify:
+That asymmetry is deliberate: a scraper bug that empties a live dataset must
+render an honest empty listing, not silently revert to fabricated awards.
 
-```sh
-curl "$SUPABASE_URL/rest/v1/funding_items?select=id,status&status=eq.pending" \
-     -H "apikey: $ANON_KEY"      # must return []
-```
+`lib/dataset.ts` validates the file at module load, so a malformed dataset fails
+the build — on the scraper's own PR rather than in front of a student. Two of its
+rules were CHECK constraints in the original Postgres schema and carry over
+unchanged: a `fixed` deadline must have both a date and an `evidence_quote`.
+
+`docs/reference-schema.sql` keeps the relational model, unapplied, in case
+reviewing is ever delegated to someone who won't use GitHub.
 
 ## Verifying the seed list
 
@@ -68,15 +72,15 @@ curl "$SUPABASE_URL/rest/v1/funding_items?select=id,status&status=eq.pending" \
 node scripts/verify-seed-urls.mjs
 ```
 
-Fetches all 31 college root URLs (1 req/s, descriptive User-Agent) and fails if any
-stops resolving. All 31 returned HTTP 200 on 2026-07-29.
+Fetches all 31 college root URLs (1 req/s, descriptive User-Agent) and fails if
+any stops resolving. All 31 returned HTTP 200 on 2026-07-29.
 
 ## Design system
 
-The token values in `app/globals.css` are **measured, not chosen** — see §8.2 of the
-spec. `test/contrast.test.mjs` re-derives all 26 pairings from that file with alpha
-composited against the real background, so a token that drifts past the 4.53:1 floor
-fails the suite rather than shipping.
+The token values in `app/globals.css` are **measured, not chosen** — see §8.2 of
+the spec. `test/contrast.test.mjs` re-derives all 26 pairings from that file with
+alpha composited against the real background, so a token that drifts past the
+4.53:1 floor fails the suite rather than shipping.
 
 One fix was made during the port: the assistant card's metadata divider was
 `rgba(255,255,255,.2)` in the mockup — 1.85:1 against the ink fill, below the 3:1
@@ -94,12 +98,13 @@ must not depend on specific wrap points.
 ## What is not built
 
 - **The scraper.** Phases 1–3: discover, fetch (HTML *and* PDF), extract with
-  `evidence_quote`, review queue, weekly GitHub Actions cron.
+  `evidence_quote`, open a PR, weekly GitHub Actions cron. Contract in
+  `docs/data-pipeline.md`.
 - **The assistant.** Phase 4. `/api/ask` returns a real `501` explaining this
-  rather than the mockup's canned answer — there are no reviewed records to search,
-  and a plausible fabricated shortlist is the exact failure this product exists to
-  prevent.
-- **Embeddings.** The schema has `vector(1536)`, but Anthropic has no embeddings
-  endpoint — that column needs a second provider (OpenAI is 1536-dim; Voyage is
-  1024 and would change the schema). At ~400 awards, Postgres full-text search is
-  likely the better v1 answer. Decide at Phase 4.
+  rather than the mockup's canned answer — there are no reviewed records to
+  search, and a plausible fabricated shortlist is the exact failure this product
+  exists to prevent.
+- **Semantic search.** The spec specified pgvector, but Anthropic has no
+  embeddings endpoint, so it would mean a second vendor and a second key. At ~400
+  awards, plain text matching over the committed dataset is almost certainly
+  enough. Revisit if the departments phase lands.

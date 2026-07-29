@@ -1,6 +1,5 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import { COLLEGES, EXPECTED_COLLEGE_COUNT, toProviders } from '../lib/colleges.ts';
 
 test('all 31 colleges are seeded — scope is locked at 31 for v1', () => {
@@ -26,14 +25,6 @@ test('funding index URLs are discovered, never guessed', () => {
   for (const c of COLLEGES) {
     assert.equal(c.fundingIndexUrl, null, `${c.name} has a hand-guessed funding URL`);
   }
-});
-
-test('generated seed SQL is in step with the source list', () => {
-  // seed_providers.sql is generated from lib/colleges.ts. If someone edits
-  // the TS and forgets to regenerate, the database seeds the old set.
-  const sql = readFileSync(new URL('../supabase/seed_providers.sql', import.meta.url), 'utf8');
-  const rows = [...sql.matchAll(/^\s*\('([a-z-]+)',/gm)].map((m) => m[1]);
-  assert.deepEqual(rows, COLLEGES.map((c) => c.slug), 'run: node scripts/gen-seed-sql.mjs');
 });
 
 test('toProviders yields well-formed college providers', () => {

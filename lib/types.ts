@@ -1,6 +1,10 @@
 /**
- * Domain types — mirror the schema in supabase/schema.sql (spec §5).
- * Keep the two in step: the SQL enums and these unions are the same set.
+ * Domain types — the data model from spec §5.
+ *
+ * These are the source of truth. `lib/dataset.ts` validates the committed
+ * dataset against them at build time; `docs/reference-schema.sql` is the
+ * unapplied relational form, kept only in case the project ever moves back
+ * to a database (see docs/data-pipeline.md).
  */
 
 export type ProviderKind = 'college' | 'department';
