@@ -140,6 +140,40 @@ nothing, and raised no error. test/discovery-score.test.mjs asserts against the
 real URLs that shaped each rule, and fails outright on any signal containing a
 control character.
 
+## What extraction taught us (2026-07-30)
+
+**7. A funding index page is not all the college's own funding.**
+Girton's page lists the Donald Robertson Travel Fund — grants for "strenuous
+open-air holidays in the Long Vacation, preferably among mountains" — under a
+heading reading "University and College Travel Awards", and its secretary is at
+trin.cam.ac.uk. Attributing it to Girton would tell a student at another college
+that they cannot apply, which is false. Extraction records only funds the page
+presents as the college's own; mixed pages need the heading read, not just the
+list. This is the attribution version of the donor-page trap: the vocabulary is
+right and the owner is wrong.
+
+**8. Not every prize is something you can apply for.**
+Downing publishes about twenty-five named prizes, nearly all of them "Awarded by
+Governing Body. Applications are not required." They are real, but a listing that
+fills with awards a student cannot act on buries the ones they can. Only
+actionable awards were extracted in this pass. Whether the product should show
+non-applicable honours at all — and how to mark them if so — is a design
+decision, not an extraction one.
+
+**9. Verbatim means verbatim, including the source's typos.**
+`scripts/verify-evidence.mjs` re-fetches every `source_url` and checks that each
+`evidence_quote` really appears. On its first run it failed exactly one record:
+Trinity's page reads "January-July 2026,or by 31st May" with no space after the
+comma, and the quote had been silently tidied while the record was written. A
+quote that has drifted is worse than no quote, because it looks like
+verification. The checker normalises whitespace and quote characters only — it
+will not normalise a paraphrase into a match.
+
+It is deliberately not part of `npm test`: it makes live requests to 31
+colleges' servers, and a college editing its own page is not a reason to fail
+someone's build. Run it when adding records, and on a schedule beside the
+scraper.
+
 ## Scraper contract (Phases 1–3, not yet built)
 
 Weekly GitHub Actions cron:

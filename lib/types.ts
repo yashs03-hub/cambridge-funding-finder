@@ -64,6 +64,23 @@ export interface FundingItem {
    * deadline must set deadline_type = 'unknown' rather than guess (§4.4).
    */
   evidence_quote: string | null;
+  /**
+   * Whether this is the uncatalogued long tail the product exists for —
+   * travel grants, hardship funds, book and equipment grants, elective
+   * bursaries, small prizes — as opposed to a large named scholarship.
+   *
+   * The distinction is the product's whole premise (§1): student-funding.cam
+   * .ac.uk already indexes the big awards, and a £12,000 studentship listed
+   * here is duplication, while a £90 music fund is the reason to visit. Both
+   * are recorded, because a college genuinely offers both and omitting one
+   * silently would be its own kind of lie — but the flag lets the listing
+   * lead with what is not findable elsewhere.
+   *
+   * Roughly: false above about £5,000, true below. Judged per record against
+   * what the page says, not computed from amount_text, which is free text and
+   * often a range or a percentage.
+   */
+  long_tail: boolean;
   status: ItemStatus;
   confidence: number | null;
   last_scraped_at: string;

@@ -85,6 +85,7 @@ export function validateDataset(data: unknown): string[] {
       at(`deadline_type ${JSON.stringify(it.deadline_type)} is not a known deadline type`);
     }
     if (!Array.isArray(it.eligibility_tags)) at('eligibility_tags must be an array');
+    if (typeof it.long_tail !== 'boolean') at('long_tail must be a boolean');
 
     // Was: constraint fixed_deadline_has_date.
     // A `fixed` type with no date renders as an open award with a blank date.

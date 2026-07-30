@@ -100,3 +100,20 @@ test('textOf removes scripts and styles, not just tags', () => {
   assert.doesNotMatch(out, /var x/);
   assert.doesNotMatch(out, /a\{\}/);
 });
+
+test('recipient lists and report pages are excluded', () => {
+  // Pembroke publishes past students' elective write-ups under a URL that
+  // reads exactly like a grant index. Extraction mined it for 29 "awards"
+  // that were student names and destinations — and every quote was verbatim,
+  // so the evidence checker passed them. Verifying that a quote exists is not
+  // verifying that the record is an award; this has to be caught here.
+  assert.equal(
+    isNoisePath(link('/current-students/finance-information/travel-grant-reports/medical-and-veterinary-electives')),
+    true,
+  );
+  assert.equal(isNoisePath(link('/funding/past-recipients')), true);
+
+  // But a real funding index containing the word "support" must survive.
+  assert.equal(isNoisePath(link('/undergraduates/financial-support/special-bursaries-and-funds')), false);
+  assert.equal(isNoisePath(link('/postgraduates/fees-and-funding')), false);
+});

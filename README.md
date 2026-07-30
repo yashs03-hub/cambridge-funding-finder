@@ -10,11 +10,11 @@ for exactly this material. That gap is the product.
 
 ## Status — 2026-07-29
 
-**Live on real data, from three colleges.** The app serves 24 genuine awards
-scraped and hand-verified from Newnham, Churchill and Trinity — travel and
-research grants, hardship funds, book and equipment grants, sizarships, music
-funds and prizes. Every record carries a verbatim `evidence_quote` from its
-source page. The sample-data banner is gone.
+**Live on real data.** 111 awards from 10 colleges. Every record carries a
+verbatim `evidence_quote` re-checked against its live source page, and 82 of
+the 111 are flagged `long_tail` — the uncatalogued travel, hardship, book,
+elective, music and prize funding this product exists for, as opposed to the
+large named scholarships already indexed centrally.
 
 Discovery covers **all 31 colleges** (`scripts/discover-funding-pages.mjs`):
 every one now yields a ranked candidate funding page, via the homepage, the site
@@ -27,7 +27,7 @@ beyond the first three is still manual — the automated fetch/extract/PR loop
 | `docs/superpowers/specs/2026-07-28-cambridge-funding-finder-design.md` | Authoritative design spec |
 | `docs/data-pipeline.md` | Why there is no database, and the scraper contract |
 | `app/`, `components/`, `lib/` | The Next.js application |
-| `data/funding.json` | The dataset — 24 real awards from 3 colleges |
+| `data/funding.json` | The dataset — 111 real awards from 10 colleges |
 | `data/discovery.json` | Ranked funding-page candidates for all 31 colleges |
 | `scripts/` | Seed verification, funding-page discovery, polite fetching |
 | `test/` | Contrast audit, dataset validation, deadline/filter/seed tests |
@@ -85,6 +85,8 @@ reviewing is ever delegated to someone who won't use GitHub.
 node scripts/verify-seed-urls.mjs                        # all 31 roots resolve
 node scripts/discover-funding-pages.mjs                  # rank funding pages
 node scripts/discover-funding-pages.mjs trinity newnham  # or named colleges
+node scripts/fetch-funding-pages.mjs                      # cache page text
+node scripts/verify-evidence.mjs                          # quotes still on source
 ```
 
 Fetches all 31 college root URLs (1 req/s, descriptive User-Agent) and fails if
