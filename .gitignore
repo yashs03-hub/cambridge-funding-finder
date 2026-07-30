@@ -15,3 +15,8 @@ next-env.d.ts
 
 # Fetched page text — a cache of other people's websites, not our data.
 .cache/
+
+# Extraction intermediates. Regenerated per run; only data/funding.json is
+# the record. Rejects are diagnostic, not data.
+data/extracted.json
+data/rejected.json

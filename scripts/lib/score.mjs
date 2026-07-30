@@ -65,6 +65,12 @@ export const DONOR_TERMS = [
 export const NOISE_PATH_TERMS = [
   [/\bnews\b/, 14],
   [/\bblog\b/, 14],
+  // Pembroke publishes /travel-grant-reports/ — past recipients trip writeups.
+  // Extraction mined it for 29 "awards" that were student names and
+  // destinations, every quote verbatim and therefore passing the evidence
+  // check. Right vocabulary, wrong kind of page.
+  [/\breports?\b/, 12],
+  [/\brecipients?\b/, 12],
   [/\bevents?\b/, 10],
   [/\bpeople\b/, 10], // /people/tom-grant is a person, not a grant
   [/\bfellows?\b/, 8],
