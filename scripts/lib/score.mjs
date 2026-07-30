@@ -70,6 +70,12 @@ export const NOISE_PATH_TERMS = [
   // destinations, every quote verbatim and therefore passing the evidence
   // check. Right vocabulary, wrong kind of page.
   [/\breports?\b/, 12],
+  // NOT excluded here: /articles/ and similar. Jesus files a genuine £500
+  // essay prize under /articles/ alongside "Professor wins award for
+  // mathematical software". A path-level rule cannot separate those, and
+  // losing a real award to filter one news item is the worse trade. The
+  // extractor decides content type by READING the page, which is the right
+  // tool for this — see rule 8 in scripts/extract-awards.mjs.
   [/\brecipients?\b/, 12],
   [/\bevents?\b/, 10],
   [/\bpeople\b/, 10], // /people/tom-grant is a person, not a grant
