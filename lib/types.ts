@@ -41,6 +41,19 @@ export interface FundingItem {
   deadline_type: DeadlineType;
   /** ISO date. Non-null only when deadline_type === 'fixed'. */
   deadline_date: string | null;
+  /**
+   * How a recurring award recurs, in the source's own words. Required when
+   * deadline_type === 'annual_recurring', null otherwise.
+   *
+   * The enum says "annual", but real college funding mostly is not. The first
+   * three colleges crawled produced termly book grants, termly equipment
+   * grants, sizarships running from 1 January, and a fund closing on 1 June
+   * each year — four different cycles, all of which a bare "Recurs annually"
+   * label would have described wrongly. Rather than widen the enum (and lose
+   * the specific date on the ones that state one), the record carries the
+   * source's phrasing and the UI shows that instead of a generic string.
+   */
+  deadline_recurrence: string | null;
   application_method: string | null;
   source_url: string;
   /**

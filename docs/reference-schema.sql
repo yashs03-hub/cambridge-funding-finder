@@ -59,6 +59,14 @@ create table if not exists funding_items (
   deadline_type      deadline_type not null default 'unknown',
   deadline_date      date,
 
+  -- How a recurring award recurs, in the source's own words.
+  -- The enum says "annual" and the data mostly is not: the first three
+  -- colleges crawled produced termly book grants, termly equipment grants,
+  -- sizarships running from 1 January, and a fund closing 1 June each year.
+  -- A generic "Recurs annually" label was wrong for seven of the ten
+  -- recurring awards found, so the cycle is carried per record.
+  deadline_recurrence text,
+
   application_method text,
   source_url         text not null,
 
@@ -91,6 +99,15 @@ create table if not exists funding_items (
   -- rule instead of a prompt instruction the model may quietly ignore.
   constraint dated_deadline_has_evidence
     check (deadline_type <> 'fixed' or evidence_quote is not null),
+
+  -- A recurrence is a claim about when a student can apply, so it carries the
+  -- same evidence burden as a fixed date, and a record that cannot state its
+  -- cycle has not established that it has one.
+  constraint recurring_states_its_cycle
+    check (deadline_type <> 'annual_recurring'
+           or (deadline_recurrence is not null and evidence_quote is not null)),
+  constraint recurrence_only_when_recurring
+    check (deadline_type = 'annual_recurring' or deadline_recurrence is null),
 
   unique (provider_id, source_url, title)
 );

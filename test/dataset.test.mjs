@@ -70,7 +70,11 @@ test('a fixed deadline with no evidence quote is rejected', () => {
 });
 
 test('rolling and unknown deadlines need neither date nor quote', () => {
-  for (const deadline_type of ['rolling', 'annual_recurring', 'unknown']) {
+  // `annual_recurring` used to be in this list. The first real crawl removed
+  // it: a recurrence is a claim about when a student can apply, so it now
+  // carries the same evidence burden as a fixed date. See the recurrence
+  // tests at the end of this file.
+  for (const deadline_type of ['rolling', 'unknown']) {
     const errors = validateDataset(
       withItem({ deadline_type, deadline_date: null, evidence_quote: null }),
     );
@@ -118,4 +122,62 @@ test('required identity fields are enforced', () => {
     const errors = validateDataset(withItem({ [field]: '' }));
     assert.match(errors.join(), new RegExp(`${field} is required`), `${field} not enforced`);
   }
+});
+
+// ── Recurrence, added after the first real crawl ────────────────────────
+// The enum says "annual_recurring" and the real data almost never is: of the
+// ten recurring awards at the first three colleges, three were termly and
+// four ran from 1 January. A generic "Recurs annually" label was wrong for
+// seven of ten, so the record must now state its cycle in the source's words.
+
+test('annual_recurring must state how it recurs', () => {
+  const errs = validateDataset(
+    withItem({
+      deadline_type: 'annual_recurring',
+      deadline_date: null,
+      deadline_recurrence: null,
+      evidence_quote: 'Applications are considered each term.',
+    }),
+  );
+  assert.ok(
+    errs.some((e) => /deadline_recurrence is missing/.test(e)),
+    `expected a missing-recurrence error, got ${JSON.stringify(errs)}`,
+  );
+});
+
+test('a recurrence claim needs an evidence quote, like any deadline claim', () => {
+  const errs = validateDataset(
+    withItem({
+      deadline_type: 'annual_recurring',
+      deadline_date: null,
+      deadline_recurrence: 'Termly',
+      evidence_quote: null,
+    }),
+  );
+  assert.ok(
+    errs.some((e) => /evidence_quote is missing/.test(e)),
+    `expected a missing-evidence error, got ${JSON.stringify(errs)}`,
+  );
+});
+
+test('recurrence text on a non-recurring award is a contradiction', () => {
+  const errs = validateDataset(withItem({ deadline_recurrence: 'Termly' }));
+  assert.ok(
+    errs.some((e) => /deadline_recurrence is set but deadline_type/.test(e)),
+    `expected a contradiction error, got ${JSON.stringify(errs)}`,
+  );
+});
+
+test('a well-formed recurring award passes', () => {
+  assert.deepEqual(
+    validateDataset(
+      withItem({
+        deadline_type: 'annual_recurring',
+        deadline_date: null,
+        deadline_recurrence: 'Applications must arrive by 1 June each year',
+        evidence_quote: 'Applications should reach her by 1 June each year.',
+      }),
+    ),
+    [],
+  );
 });

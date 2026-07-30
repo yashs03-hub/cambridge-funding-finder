@@ -43,13 +43,23 @@ export function describeDeadline(
   deadlineType: DeadlineType,
   deadlineDate: string | null,
   now: Date = new Date(),
+  // Appended rather than inserted before `now` so that every existing call
+  // site keeps its meaning; `now` is the parameter callers actually override.
+  recurrence: string | null = null,
 ): DeadlineView {
   switch (deadlineType) {
     case 'rolling':
       return { state: 'rolling', text: 'Rolling — apply any time' };
 
-    case 'annual_recurring':
-      return { state: 'recurring', text: 'Recurs annually' };
+    case 'annual_recurring': {
+      // The source's own wording, because "annual" is usually a lie: the
+      // first three colleges crawled recur termly, from 1 January, and on
+      // 1 June respectively. A record that cannot say how it recurs has not
+      // established that it recurs, so it degrades to `unknown` — the same
+      // rule as a `fixed` deadline with no date, one field along.
+      if (!recurrence) return { state: 'unknown', text: 'Deadline not stated on source page' };
+      return { state: 'recurring', text: recurrence };
+    }
 
     case 'unknown':
       // Explicit sentence, not a blank. See §5.

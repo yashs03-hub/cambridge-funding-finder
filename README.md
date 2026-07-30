@@ -10,16 +10,26 @@ for exactly this material. That gap is the product.
 
 ## Status — 2026-07-29
 
-**Next.js app scaffolded.** It builds, runs, and renders the verified light design
-system. No real funding data has been collected — the site runs on invented awards
-and says so on every page.
+**Live on real data, from three colleges.** The app serves 24 genuine awards
+scraped and hand-verified from Newnham, Churchill and Trinity — travel and
+research grants, hardship funds, book and equipment grants, sizarships, music
+funds and prizes. Every record carries a verbatim `evidence_quote` from its
+source page. The sample-data banner is gone.
+
+Discovery covers **all 31 colleges** (`scripts/discover-funding-pages.mjs`):
+every one now yields a ranked candidate funding page, via the homepage, the site
+sitemap, or one hop through its section pages. No college blocks us. Extraction
+beyond the first three is still manual — the automated fetch/extract/PR loop
+(Phases 2–3) is not built.
 
 | | |
 |---|---|
 | `docs/superpowers/specs/2026-07-28-cambridge-funding-finder-design.md` | Authoritative design spec |
 | `docs/data-pipeline.md` | Why there is no database, and the scraper contract |
 | `app/`, `components/`, `lib/` | The Next.js application |
-| `data/funding.json` | The dataset — currently a placeholder |
+| `data/funding.json` | The dataset — 24 real awards from 3 colleges |
+| `data/discovery.json` | Ranked funding-page candidates for all 31 colleges |
+| `scripts/` | Seed verification, funding-page discovery, polite fetching |
 | `test/` | Contrast audit, dataset validation, deadline/filter/seed tests |
 | `mockup/index.html` | The original static design mockup (superseded by the app) |
 
@@ -34,7 +44,7 @@ npm run dev          # http://localhost:3000
 file, so a fresh clone runs immediately.
 
 ```sh
-npm test             # 44 tests
+npm test             # 67 tests
 npm run typecheck
 npm run build
 ```
@@ -61,15 +71,20 @@ render an honest empty listing, not silently revert to fabricated awards.
 `lib/dataset.ts` validates the file at module load, so a malformed dataset fails
 the build — on the scraper's own PR rather than in front of a student. Two of its
 rules were CHECK constraints in the original Postgres schema and carry over
-unchanged: a `fixed` deadline must have both a date and an `evidence_quote`.
+unchanged: a `fixed` deadline must have both a date and an `evidence_quote`. A
+third was added after the first real crawl — an `annual_recurring` award must
+say *how* it recurs, in the source's words, because "annual" turned out to be
+wrong for seven of the ten recurring awards found.
 
 `docs/reference-schema.sql` keeps the relational model, unapplied, in case
 reviewing is ever delegated to someone who won't use GitHub.
 
-## Verifying the seed list
+## Verifying seeds and discovering funding pages
 
 ```sh
-node scripts/verify-seed-urls.mjs
+node scripts/verify-seed-urls.mjs                        # all 31 roots resolve
+node scripts/discover-funding-pages.mjs                  # rank funding pages
+node scripts/discover-funding-pages.mjs trinity newnham  # or named colleges
 ```
 
 Fetches all 31 college root URLs (1 req/s, descriptive User-Agent) and fails if
@@ -97,9 +112,10 @@ must not depend on specific wrap points.
 
 ## What is not built
 
-- **The scraper.** Phases 1–3: discover, fetch (HTML *and* PDF), extract with
-  `evidence_quote`, open a PR, weekly GitHub Actions cron. Contract in
-  `docs/data-pipeline.md`.
+- **The rest of the scraper.** Discovery (Phase 1) is built and covers 31 of 31
+  colleges. Still to build: automated
+  extraction (HTML *and* PDF), the diff-and-open-a-PR step, and the weekly
+  GitHub Actions cron. Contract in `docs/data-pipeline.md`.
 - **The assistant.** Phase 4. `/api/ask` returns a real `501` explaining this
   rather than the mockup's canned answer — there are no reviewed records to
   search, and a plausible fabricated shortlist is the exact failure this product

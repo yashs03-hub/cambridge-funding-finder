@@ -69,6 +69,8 @@ award a student could act on:
 - `deadline_type = 'fixed'` **must** have an `evidence_quote`. An extraction that
   cannot quote a source sentence for its deadline records `unknown` instead of
   guessing (§4.4).
+- `deadline_type = 'annual_recurring'` **must** have a `deadline_recurrence` and
+  an `evidence_quote`. Added after the first real crawl — see below.
 
 Plus: unique ids, absolute `source_url` (it is the trust link on every card),
 `YYYY-MM-DD` dates, known enum values, and no record whose `status` is anything
@@ -76,6 +78,67 @@ other than `approved`.
 
 Validation runs at module load in `lib/data.ts`, so a malformed file fails the
 build — on the scraper's own pull request, not in front of a student.
+
+## What the first real crawl changed (2026-07-29)
+
+Three colleges were discovered, fetched and extracted by hand as a spike
+before committing to the full pipeline, then discovery was generalised to all
+31. Six findings, each now encoded somewhere rather than written down here only.
+
+**1. "Recurs annually" was wrong for most recurring awards.**
+Of the ten recurring awards found, three were *termly* (Newnham's book grants,
+equipment grants and Master's research fund), four ran *from 1 January*
+(Churchill's four sizarships), and one closed on *1 June each year* (the
+Kathleen Hughes Memorial Fund). The enum name promised a cycle the data does
+not have. Records now carry `deadline_recurrence` — the source's own wording —
+and the UI prints that instead of a generic label. A recurring record that
+cannot state its cycle degrades to `unknown`, the same rule as a `fixed`
+deadline with no date. Enforced in `lib/dataset.ts` and `test/dataset.test.mjs`.
+
+**2. Funding pages compete with fundraising pages, and fundraising wins.**
+On a college website "funding" points in two opposite directions: money coming
+to a student, and money coming from a donor. Colleges publish far more of the
+latter. `scripts/discover-funding-pages.mjs` therefore scores both ways, with
+donor vocabulary (donate, giving, legacy, alumni, campaign, benefactor)
+*subtracting*. Darwin College is the proof: the only funding-shaped links on its
+homepage are `/alumni-and-supporters/donate/` and the campaign page, so the
+homepage pass returns **zero** rather than a confident wrong answer — and the
+crawl-depth fallback below then finds the real page at `/study/awards/`.
+
+**3. One line of CMS boilerplate can fence off a whole college.**
+Newnham runs Drupal, whose stock robots.txt disallows a path containing a
+wildcard in the middle. Reading that as a literal prefix yields `/`, which
+matches every URL *and* wins the longest-match tie-break — the crawler silently
+skips a college that never asked it to. `test/robots.test.mjs` pins the correct
+wildcard semantics, along with crawl-delay precedence and named-agent groups.
+
+**4. Coverage is 31 of 31, but only after adding crawl depth.**
+The homepage pass alone reached 29. Darwin and Peterhouse do not link student
+funding from their homepage at all — a crawl-depth problem, not a scoring one,
+so the fix was more URLs rather than looser keywords (loosening them would just
+promote the donation pages the scoring exists to reject). Two fallbacks now fire
+when the homepage pass scores below 30: the site sitemap, then one hop through
+the homepage own section pages. Final routes: 8 homepage-only, 8 sitemap,
+7 second-level, 8 both. Only Emmanuel still scores under 30, and its page
+(/admissions/postgraduates/funding) is correct — just a short path carrying
+few signals.
+
+**5. Section noise had to become a hard exclusion, not a penalty.**
+Wolfson top hit was a news story whose URL contained "travel-grants". Penalising
+the path did not work: the article genuinely lists amounts, eligibility and how
+to apply, so it earned those content points honestly and climbed back to the top.
+The page is disqualified by what it IS — an article — not by how it reads. News,
+blog, event, person and dated paths are now excluded outright, and the count of
+dropped URLs is reported per college (443 across the 31), because a silent filter
+reads as "this college has no funding page" when it may mean the opposite.
+
+**6. Scoring lives in scripts/lib/score.mjs so it can be tested.**
+A regex that silently matches nothing looks identical to one that works. A shell
+heredoc ate the word-boundary escapes during development, turning the news filter
+into a pattern containing literal backspace characters — it compiled, ran, matched
+nothing, and raised no error. test/discovery-score.test.mjs asserts against the
+real URLs that shaped each rule, and fails outright on any signal containing a
+control character.
 
 ## Scraper contract (Phases 1–3, not yet built)
 

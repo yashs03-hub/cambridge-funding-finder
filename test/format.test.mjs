@@ -76,3 +76,17 @@ test('daysBetween ignores time of day', () => {
   assert.equal(daysBetween(new Date('2026-07-29T23:00:00Z'), new Date('2026-07-30T01:00:00Z')), 1);
   assert.equal(daysBetween(new Date('2026-07-29T01:00:00Z'), new Date('2026-07-29T23:00:00Z')), 0);
 });
+
+test('a recurring award shows its own cycle, not a generic label', () => {
+  const v = describeDeadline('annual_recurring', null, NOW, 'Termly; decisions by the end of each term');
+  assert.equal(v.state, 'recurring');
+  assert.equal(v.text, 'Termly; decisions by the end of each term');
+});
+
+test('a recurring award that cannot state its cycle degrades to unknown', () => {
+  // Same rule as a `fixed` deadline with no date, one field along: claiming a
+  // cycle you cannot describe is the failure this product exists to prevent.
+  const v = describeDeadline('annual_recurring', null, NOW, null);
+  assert.equal(v.state, 'unknown');
+  assert.match(v.text, /not stated/i);
+});

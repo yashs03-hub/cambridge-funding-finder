@@ -14,9 +14,10 @@ import type { Recommendation } from '@/lib/types';
  * retrieval is a pgvector query and the response composer is string
  * formatting — neither is model-shaped work.
  *
- * This returns 501 rather than the mockup's canned answer on purpose. There
- * is no approved funding data to retrieve against yet, and a plausible
- * fabricated shortlist is precisely the failure this product exists to avoid.
+ * This returns 501 rather than the mockup's canned answer on purpose. A
+ * plausible fabricated shortlist is precisely the failure this product exists
+ * to avoid, and a matcher that has read three colleges out of thirty-one would
+ * produce exactly that: confident answers whose omissions are invisible.
  */
 
 export interface AskResponse {
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
   return NextResponse.json(
     {
       error:
-        'The assistant is not built yet. It is Phase 4, and it needs reviewed funding records to search — none have been collected. Browse the college listing in the meantime.',
+        'The assistant is not built yet. It is Phase 4, and so far only three of the thirty-one colleges have been read — a shortlist drawn from those would look complete while silently missing most of Cambridge. Browse the college listing in the meantime.',
     },
     { status: 501 },
   );

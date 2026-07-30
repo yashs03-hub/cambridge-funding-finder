@@ -101,6 +101,22 @@ export function validateDataset(data: unknown): string[] {
       at(`deadline_date ${JSON.stringify(it.deadline_date)} is not YYYY-MM-DD`);
     }
 
+    // Third invariant, added after the first real crawl. `annual_recurring`
+    // must say how it recurs, in the source's words. The enum name promises
+    // "annual" and the data almost never is: of the ten recurring awards
+    // found at the first three colleges, three were termly and four ran from
+    // 1 January. A record that cannot state its cycle has not established one.
+    if (it.deadline_type === 'annual_recurring') {
+      if (typeof it.deadline_recurrence !== 'string' || !it.deadline_recurrence.trim()) {
+        at('deadline_type is "annual_recurring" but deadline_recurrence is missing — quote the cycle or record "unknown"');
+      }
+      if (!it.evidence_quote) {
+        at('deadline_type is "annual_recurring" but evidence_quote is missing — a recurrence claim is a deadline claim');
+      }
+    } else if (it.deadline_recurrence != null) {
+      at(`deadline_recurrence is set but deadline_type is ${JSON.stringify(it.deadline_type)}`);
+    }
+
     // The file holds the public listing, so anything in it is already approved.
     if (it.status !== undefined && it.status !== 'approved') {
       at(`status is ${JSON.stringify(it.status)} — only approved records belong in this file`);
