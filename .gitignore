@@ -12,3 +12,6 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .vercel
+
+# Fetched page text — a cache of other people's websites, not our data.
+.cache/
