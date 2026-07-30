@@ -30,6 +30,7 @@ const validItem = () => ({
   application_method: null,
   source_url: 'https://www.trin.cam.ac.uk',
   evidence_quote: 'Applications close on 15 August.',
+  long_tail: true,
   last_scraped_at: '2026-07-26T00:00:00Z',
   last_verified_at: '2026-07-26T00:00:00Z',
 });

@@ -32,6 +32,9 @@ export function sampleData(now: Date = new Date()): FundingData {
     // Default; the one recurring sample overrides it. Required on every
     // record so the sample set exercises the same invariants as live data.
     deadline_recurrence: null as string | null,
+    // The sample set is all long tail by construction — it exists to show the
+    // listing doing its actual job.
+    long_tail: true,
   };
 
   const items: FundingItem[] = [
