@@ -10,6 +10,12 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    // Lets lib/*.ts import a sibling as "./format.ts". Node's test runner
+    // strips types but does NOT resolve extensionless relative imports, so
+    // without this a lib file that imports another lib file cannot be unit
+    // tested — which is exactly what lib/retrieval.ts needs to be. Safe here:
+    // noEmit is set and resolution is "bundler".
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
