@@ -27,7 +27,7 @@ beyond the first three is still manual — the automated fetch/extract/PR loop
 | `docs/superpowers/specs/2026-07-28-cambridge-funding-finder-design.md` | Authoritative design spec |
 | `docs/data-pipeline.md` | Why there is no database, and the scraper contract |
 | `app/`, `components/`, `lib/` | The Next.js application |
-| `data/funding.json` | The dataset — 111 real awards from 10 colleges |
+| `data/funding.json` | The dataset — 449 real awards from 30 colleges |
 | `data/discovery.json` | Ranked funding-page candidates for all 31 colleges |
 | `scripts/` | Seed verification, funding-page discovery, polite fetching |
 | `test/` | Contrast audit, dataset validation, deadline/filter/seed tests |

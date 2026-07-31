@@ -1,6 +1,6 @@
 {
   "$comment": "Phase 1 discover output. Ranked candidates only — a human promotes one to fundingIndexUrl in lib/colleges.ts.",
-  "generated_at": "2026-07-29T16:34:39.084Z",
+  "generated_at": "2026-07-31T13:04:21.444Z",
   "colleges": [
     {
       "slug": "christs",
@@ -423,6 +423,16 @@
       },
       "candidates": [
         {
+          "url": "https://www.fitz.cam.ac.uk/pg-funding",
+          "text": "",
+          "title": "Funding and financial support | Fitzwilliam College, Cambridge | College of the University of Cambridge",
+          "linkScore": 8,
+          "contentScore": 32,
+          "total": 40,
+          "httpStatus": 200,
+          "blocked": false
+        },
+        {
           "url": "https://www.fitz.cam.ac.uk/undergraduate-fees-and-funding",
           "text": "",
           "title": "Undergraduate Fees and Funding | Fitzwilliam College, Cambridge | College of the University of Cambridge",
@@ -453,32 +463,12 @@
           "blocked": false
         },
         {
-          "url": "https://www.fitz.cam.ac.uk/north-west-bursaries-donors",
-          "text": "",
-          "title": "North West Bursaries | Fitzwilliam College, Cambridge | College of the University of Cambridge",
-          "linkScore": 16,
-          "contentScore": 7,
-          "total": 23,
-          "httpStatus": 200,
-          "blocked": false
-        },
-        {
-          "url": "https://www.fitz.cam.ac.uk/making-gift-support-north-west-bursaries",
+          "url": "https://www.fitz.cam.ac.uk/finance",
           "text": "",
           "title": null,
-          "linkScore": 16,
+          "linkScore": 4,
           "contentScore": null,
-          "total": 16,
-          "httpStatus": null,
-          "blocked": false
-        },
-        {
-          "url": "https://www.fitz.cam.ac.uk/pg-funding",
-          "text": "",
-          "title": null,
-          "linkScore": 8,
-          "contentScore": null,
-          "total": 8,
+          "total": 4,
           "httpStatus": null,
           "blocked": false
         }
