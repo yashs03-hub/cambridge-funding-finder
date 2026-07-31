@@ -117,3 +117,28 @@ test('recipient lists and report pages are excluded', () => {
   assert.equal(isNoisePath(link('/undergraduates/financial-support/special-bursaries-and-funds')), false);
   assert.equal(isNoisePath(link('/postgraduates/fees-and-funding')), false);
 });
+
+test('donor vocabulary is matched by stem, not by one exact phrasing', () => {
+  // Fitzwilliam exposed two misses in the donor list. `\bdonat` does not match
+  // "donors" (different stem), and `\bmake\s+a\s+gift\b` does not match
+  // "making-gift-support-...". Both fundraising pages therefore scored 16 —
+  // identical to the real bursary FAQ — and got crawled, contributing 27 of
+  // the 44 money mentions that made the college look content-rich.
+  assert.ok(scoreCandidate(link('/north-west-bursaries-donors')) < 0);
+  assert.ok(scoreCandidate(link('/making-gift-support-north-west-bursaries')) < 0);
+
+  // The real page must stay clearly positive.
+  assert.ok(scoreCandidate(link('/north-west-student-bursary-faq')) > 0);
+});
+
+test('HTML entities are decoded before any text comparison', () => {
+  // A silent record-killer. The fetch stage decoded &#8217; when writing the
+  // cache, so agents read "Tutors’ Fund" and quoted it faithfully. The
+  // verifier's textOf() decoded only &nbsp;, compared against the literal
+  // "Tutors&#8217; Fund", and rejected fourteen good records as unverifiable.
+  // Two code paths reading one page must not disagree about what it says.
+  const out = textOf('<p>Tutors&#8217; Fund &amp; &pound;600 &#8211; &#x2019;</p>');
+  assert.match(out, /Tutors’ Fund/);
+  assert.match(out, /& £600/);
+  assert.doesNotMatch(out, /&#\d+;|&[a-z]+;/i, 'no entity should survive');
+});

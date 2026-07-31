@@ -28,6 +28,23 @@ const OUT = new URL('.cache/pages/', ROOT);
 
 /** How many child pages to follow from a college's funding index. */
 const MAX_CHILDREN = 8;
+
+/**
+ * --deep: start from EVERY ranked candidate, not just the top one.
+ *
+ * The default takes candidates[0] and follows its children, which is right
+ * when a college has one real funding index. It is wrong when the index is a
+ * signpost: Fitzwilliam's top page says "bursaries, book grants and travel
+ * awards… click here" and nothing else, so a single-page fetch produced one
+ * page of prose and extraction correctly returned zero awards. The funding was
+ * one hop away the whole time.
+ *
+ * Zero-yield colleges are therefore re-fetched with --deep before anyone
+ * concludes the college offers nothing. "We did not look hard enough" and
+ * "there is nothing there" must not look the same.
+ */
+const DEEP = process.argv.includes('--deep');
+const MAX_ROOTS = DEEP ? 5 : 1;
 /** A child link must still look like funding to be worth a request. */
 const CHILD_MIN_SCORE = 4;
 
@@ -70,7 +87,7 @@ function trimNav(text) {
 }
 
 const discovery = JSON.parse(readFileSync(new URL('data/discovery.json', ROOT), 'utf8'));
-const only = process.argv.slice(2);
+const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const targets = only.length
   ? discovery.colleges.filter((c) => only.includes(c.slug))
   : discovery.colleges;
@@ -83,7 +100,8 @@ if (!targets.length) {
 const manifest = [];
 
 for (const college of targets) {
-  const top = college.candidates[0];
+  const roots = college.candidates.slice(0, MAX_ROOTS);
+  const top = roots[0];
   if (!top) {
     console.log(`skip    ${college.name} — no candidate`);
     manifest.push({ slug: college.slug, name: college.name, pages: [], note: 'no candidate' });
@@ -95,8 +113,8 @@ for (const college of targets) {
 
   const pages = [];
   const pdfs = [];
-  const queue = [top.url];
-  const seen = new Set([top.url]);
+  const queue = roots.map((r) => r.url);
+  const seen = new Set(queue);
 
   const index = await politeFetch(top.url);
   if (!index.ok) {

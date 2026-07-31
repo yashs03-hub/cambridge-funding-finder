@@ -38,6 +38,10 @@ export const STUDENT_TERMS = [
  */
 export const DONOR_TERMS = [
   [/\bdonat/, 12],
+  // "donors" is not matched by /\bdonat/ — different stem. Fitzwilliam
+  // serves /north-west-bursaries-donors, which scored identically to the
+  // real bursary FAQ and got crawled.
+  [/\bdonors?\b/, 12],
   [/\bgiving\b/, 12],
   [/\blegac(y|ies)\b/, 10],
   [/\bbequest/, 10],
@@ -45,7 +49,10 @@ export const DONOR_TERMS = [
   [/\balumni\b/, 6],
   [/\bsupport\s+(us|the\s+college)\b/, 10],
   [/\bfundrais/, 12],
-  [/\bmake\s+a\s+gift\b/, 12],
+  // Was /\bmake\s+a\s+gift\b/, which misses "making-gift-support-...".
+  // A college page with "gift" in its URL is asking for money, not offering it.
+  [/\bgifts?\b/, 12],
+  [/\bmaking\s+a?\s*gift/, 12],
   [/\bcampaign\b/, 5],
   [/\bbenefact/, 8],
   [/\bendowment\b/, 4],
@@ -119,14 +126,41 @@ export function scoreCandidate(link) {
   return pathScore + textScore - donor;
 }
 
+
+/**
+ * Decode HTML entities before any text comparison.
+ *
+ * This was a silent record-killer. The fetch stage decoded `&#8217;` to a
+ * curly apostrophe when writing the cache, so extraction agents read "Tutors'
+ * Fund" and quoted it faithfully. The verifier used textOf(), which decoded
+ * only `&nbsp;`, so it compared against the literal string "Tutors&#8217;
+ * Fund" and found no match — rejecting fourteen perfectly good records as
+ * unverifiable.
+ *
+ * Two code paths reading the same page and disagreeing about what it says is
+ * the failure mode; the fix is that they now share one decoder.
+ */
+export function decodeEntities(text) {
+  const named = {
+    amp: '&', nbsp: ' ', pound: '£', quot: '"', apos: "'",
+    lt: '<', gt: '>', rsquo: '\u2019', lsquo: '\u2018',
+    rdquo: '\u201d', ldquo: '\u201c', ndash: '\u2013', mdash: '\u2014',
+    hellip: '\u2026', eacute: '\u00e9', deg: '\u00b0',
+  };
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&([a-z]+);/gi, (m, n) => named[n.toLowerCase()] ?? m);
+}
+
 /** Strip tags and scripts so content scoring sees prose, not markup. */
 export function textOf(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ');
+  return decodeEntities(
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' '),
+  ).replace(/\s+/g, ' ');
 }
 
 /** Absolute, same-protocol links with their anchor text, fragments stripped. */
