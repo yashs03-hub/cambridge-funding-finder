@@ -70,6 +70,20 @@ export async function getListing(now: Date = new Date()): Promise<ListingView> {
   return present(isSampleMode() ? sampleData(now) : liveData(), now);
 }
 
+/**
+ * The raw records, for the assistant's retrieval stage.
+ *
+ * Deliberately returns the stored items rather than the presented view: the
+ * assistant ranks on facts (type, eligibility, deadline_type) and must never
+ * see or repeat the human-facing strings, which are rendered afterwards from
+ * the record itself. Returns an empty array in sample mode so a
+ * misconfiguration cannot produce a shortlist of invented awards — though
+ * /api/ask refuses before it gets this far.
+ */
+export function getAllItems(): FundingItem[] {
+  return isSampleMode() ? [] : dataset.items;
+}
+
 function liveData(): FundingData {
   const items = dataset.items;
   const lastVerified = items.reduce<string | null>(

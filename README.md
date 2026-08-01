@@ -92,6 +92,42 @@ node scripts/verify-evidence.mjs                          # quotes still on sour
 Fetches all 31 college root URLs (1 req/s, descriptive User-Agent) and fails if
 any stops resolving. All 31 returned HTTP 200 on 2026-07-29.
 
+## The assistant
+
+`/api/ask` takes a student's free-text situation and returns up to five awards
+with a reason and a caveat each.
+
+```
+free text -> deterministic retrieval over the dataset (top 40)
+          -> one model call to rank and explain
+          -> ids validated back against the candidate set
+          -> rendered from the STORED record
+```
+
+**The model never produces a funding record.** It receives candidates retrieval
+already chose and may only return ids from that list; anything else is dropped.
+Deadline, amount and college render from the stored record, never from model
+prose. What the model contributes is the two things keyword search cannot
+write: why an award fits *this* student, and why it might not.
+
+Retrieval is plain text matching weighted by inverse document frequency — no
+embeddings, no vector store, no second vendor. At ~450 in-memory records an
+exhaustive scan costs microseconds, and when the wrong award ranks first the
+reason is inspectable (`Scored.reasons`) rather than a number nobody can argue
+with.
+
+It needs `OPENAI_API_KEY` set on the deployment. Without one the endpoint
+returns a truthful 501 and the listing keeps working — it never falls back to
+canned text. Three failure modes are distinguished on purpose:
+
+| Situation | Response |
+|---|---|
+| No key configured | 501, says so |
+| Serving sample data | 501 — recommending invented awards is the failure this exists to prevent |
+| Model unreachable | 503 — *not* an empty shortlist, which would read as "nothing suits you" |
+
+An empty shortlist from a working assistant is a real answer and returns 200.
+
 ## Design system
 
 The token values in `app/globals.css` are **measured, not chosen** — see §8.2 of
@@ -118,11 +154,5 @@ must not depend on specific wrap points.
   colleges. Still to build: automated
   extraction (HTML *and* PDF), the diff-and-open-a-PR step, and the weekly
   GitHub Actions cron. Contract in `docs/data-pipeline.md`.
-- **The assistant.** Phase 4. `/api/ask` returns a real `501` explaining this
-  rather than the mockup's canned answer — there are no reviewed records to
-  search, and a plausible fabricated shortlist is the exact failure this product
-  exists to prevent.
-- **Semantic search.** The spec specified pgvector, but Anthropic has no
-  embeddings endpoint, so it would mean a second vendor and a second key. At ~400
-  awards, plain text matching over the committed dataset is almost certainly
-  enough. Revisit if the departments phase lands.
+- **The weekly cron.** GitHub Actions running discover -> fetch -> extract ->
+  open a PR. The pieces exist; the schedule does not.
