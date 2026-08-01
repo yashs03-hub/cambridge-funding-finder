@@ -52,6 +52,28 @@ const norm = (s) =>
     .trim()
     .toLowerCase();
 
+/**
+ * Title normalised for duplicate detection: casing, punctuation and the
+ * connective words colleges vary freely ("Harry Barkley Fund for the Year 5
+ * Elective" vs "Harry Barkley for Year 5 Elective").
+ *
+ * Exact id matching was not enough. Girton was extracted twice — once by hand,
+ * once by an agent — and three awards landed in the dataset twice because the
+ * titles differed just enough to produce different ids. A student asking about
+ * a medical elective got the same fund back as both #1 and #2, burning two of
+ * five shortlist slots on one award.
+ */
+const normTitle = (t) =>
+  t
+    .toLowerCase()
+    .replace(/\b(the|fund|funds|award|awards|grant|grants|scholarship|scholarships|bursary|bursaries|studentship|studentships|for|of|in|a|an)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+const existingTitles = new Set(
+  dataset.items.map((i) => i.provider_id + "::" + normTitle(i.title)),
+);
+
 const kept = [];
 const rejected = [];
 
@@ -62,6 +84,12 @@ for (const item of extracted.items) {
     rejected.push({ id: item.id, reason: 'duplicate of an existing record' });
     continue;
   }
+  const titleKey = item.provider_id + '::' + normTitle(item.title);
+  if (existingTitles.has(titleKey)) {
+    rejected.push({ id: item.id, reason: 'near-duplicate title of an existing record' });
+    continue;
+  }
+  existingTitles.add(titleKey);
   const errs = validateDataset({ status: 'live', generated_at: null, items: [item] });
   if (errs.length) {
     rejected.push({ id: item.id, reason: `schema: ${errs.join('; ')}` });
