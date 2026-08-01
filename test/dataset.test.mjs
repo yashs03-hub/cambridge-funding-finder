@@ -182,3 +182,37 @@ test('a well-formed recurring award passes', () => {
     [],
   );
 });
+
+test('no college lists the same award twice under different titles', () => {
+  // Exact-id deduplication was not enough. Girton was extracted twice — once
+  // by hand, once by an agent — and three awards landed twice because the
+  // titles differed just enough to produce different ids ("Harry Barkley Fund
+  // for the Year 5 Elective" vs "Harry Barkley for Year 5 Elective"). A
+  // student asking about a medical elective got the same fund as both #1 and
+  // #2 on the live site, spending two of five shortlist slots on one award.
+  //
+  // Exact normalised equality only — deliberately not substring matching,
+  // which flagged "Dinah James Award for Year 5 Elective" against "Dinah
+  // James Scholarship". Those are genuinely different awards, and a test that
+  // cries wolf gets deleted.
+  const normTitle = (t) =>
+    t
+      .toLowerCase()
+      .replace(
+        /\b(the|fund|funds|award|awards|grant|grants|scholarship|scholarships|bursary|bursaries|studentship|studentships|for|of|in|a|an)\b/g,
+        ' ',
+      )
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+
+  const seen = new Map();
+  const dupes = [];
+  for (const item of committed.items) {
+    const key = `${item.provider_id}::${normTitle(item.title)}`;
+    if (!normTitle(item.title)) continue;
+    if (seen.has(key)) dupes.push(`${item.provider_name}: "${seen.get(key)}" / "${item.title}"`);
+    else seen.set(key, item.title);
+  }
+
+  assert.deepEqual(dupes, [], `duplicate awards:\n  ${dupes.join('\n  ')}`);
+});
