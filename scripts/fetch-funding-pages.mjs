@@ -86,8 +86,12 @@ function trimNav(text) {
   return text;
 }
 
-const discovery = JSON.parse(readFileSync(new URL('data/discovery.json', ROOT), 'utf8'));
-const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const discArg = process.argv.indexOf('--discovery');
+const discoveryFile = discArg > -1 ? process.argv[discArg + 1] : 'data/discovery.json';
+const discovery = JSON.parse(readFileSync(new URL(discoveryFile, ROOT), 'utf8'));
+const only = process.argv
+  .slice(2)
+  .filter((a) => !a.startsWith('--') && a !== discoveryFile);
 const targets = only.length
   ? discovery.colleges.filter((c) => only.includes(c.slug))
   : discovery.colleges;

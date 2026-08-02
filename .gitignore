@@ -21,3 +21,7 @@ next-env.d.ts
 data/extracted.json
 data/rejected.json
 data/extracted/
+
+# Department pilot output — candidates only, never promoted.
+data/extracted-departments/
+data/discovery-departments.json

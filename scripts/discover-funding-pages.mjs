@@ -43,12 +43,29 @@ const ROOT = new URL('..', import.meta.url);
 
 // Signals and scoring live in ./lib/score.mjs so they can be unit-tested.
 
-const src = readFileSync(new URL('lib/colleges.ts', ROOT), 'utf8');
+/**
+ * Seed source. Defaults to the colleges; --seeds points it at another file of
+ * the same shape (lib/departments.ts) so the department pilot reuses this
+ * stage rather than forking it. --out keeps the two result files apart, since
+ * merging departments into data/discovery.json would make "31 colleges on
+ * file" quietly untrue.
+ */
+const seedsArg = process.argv.indexOf('--seeds');
+const seedsFile = seedsArg > -1 ? process.argv[seedsArg + 1] : 'lib/colleges.ts';
+const outArg = process.argv.indexOf('--out');
+const outFile = outArg > -1 ? process.argv[outArg + 1] : 'data/discovery.json';
+
+const src = readFileSync(new URL(seedsFile, ROOT), 'utf8');
 const seeds = [...src.matchAll(/slug:\s*'([^']+)',\s*name:\s*(["'])(.+?)\2,\s*url:\s*'([^']+)'/g)].map(
   (m) => ({ slug: m[1], name: m[3], url: m[4] }),
 );
 
-const only = process.argv.slice(2);
+// Strip flags AND their values, so --seeds lib/departments.ts is not read as
+// two provider slugs.
+const flagValues = new Set([seedsFile, outFile]);
+const only = process.argv
+  .slice(2)
+  .filter((a) => !a.startsWith("--") && !flagValues.has(a));
 const targets = only.length ? seeds.filter((s) => only.includes(s.slug)) : seeds;
 if (!targets.length) {
   console.error(`No colleges matched: ${only.join(', ')}`);
@@ -197,7 +214,7 @@ for (const college of targets) {
 }
 
 mkdirSync(new URL('data', ROOT), { recursive: true });
-const outPath = new URL('data/discovery.json', ROOT);
+const outPath = new URL(outFile, ROOT);
 
 // Merge rather than overwrite. Running the script for two named colleges used
 // to replace the whole file with those two, so a targeted re-run silently
@@ -235,7 +252,7 @@ writeFileSync(
 const withCandidates = results.filter((r) => r.candidates.length > 0).length;
 console.log(`\n${withCandidates}/${results.length} colleges produced at least one candidate`);
 console.log(
-  `→ data/discovery.json (${merged.length} colleges on file${
+  `→ ${outFile} (${merged.length} colleges on file${
     merged.length > results.length ? `, ${merged.length - results.length} kept from a previous run` : ''
   })`,
 );
