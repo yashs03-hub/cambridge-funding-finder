@@ -132,3 +132,45 @@ Reusable regardless of the decision:
   non-college provider.
 
 Nothing from this pilot was promoted into `data/funding.json`.
+
+---
+
+## Appendix — the full pilot output
+
+Preserved here because the conclusion above is committed and the raw candidate
+files are gitignored. A negative result whose evidence has been deleted is just
+an assertion.
+
+### Per department
+
+| Department | Awards | Long tail | External omitted | Job adverts omitted | Honours omitted |
+|---|---|---|---|---|---|
+| Department of Archaeology | 6 | 3 | 14 | 0 | 0 |
+| Department of Computer Science and Technology | 3 | 0 | 8 | 2 | 5 |
+| Department of Engineering | 0 | 0 | 10 | 3 | 0 |
+| Faculty of History | 2 | 1 | 5 | 0 | 0 |
+| Faculty of Mathematics | 1 | 1 | 0 | 0 | 1 |
+
+### Every record extracted
+
+| Provider | Award | Tier | Amount | Deadline |
+|---|---|---|---|---|
+| Archaeology | Department of Archaeology MPhil Bursary | large | £15000 | unknown |
+| Archaeology | The McBurney/St Edmund's College MPhil Bursary in Geoarchaeology | large | — | unknown |
+| Archaeology | Thomas Mulvey Egyptology Fund | large | One award of £5000 for each of the two degree programmes | unknown |
+| Archaeology | Anthony Wilkin Ethnology and Archaeology Fund | **tail** | — | annual_recurring |
+| Archaeology | The Dorothy Garrod Memorial Trust Fund | **tail** | — | annual_recurring |
+| Archaeology | University Fieldwork Fund | **tail** | — | annual_recurring |
+| Computer Science and Technology | Premium Research Studentship | large | — | annual_recurring |
+| Computer Science and Technology | The Hopper Studentship | large | — | unknown |
+| Computer Science and Technology | CASCADE Computer Architecture & Semiconductor Design Centre | large | — | unknown |
+| History | Colombo: Layered Histories in the Global South City Studentship | large | full tuition fees at the University of Cambridge over three years, plus a maintenance allowance of £21,805 per year and a budget for training and research | fixed |
+| History | Faculty of History Trust Funds | **tail** | — | unknown |
+| Mathematics | Rayleigh-Knight Prize | **tail** | — | fixed |
+
+Read the tier column against the product premise: of twelve records, five are
+long tail, and of those five only three survive inspection — the "University
+Fieldwork Fund" is almost certainly mis-attributed and "Faculty of History
+Trust Funds" is a container rather than an award.
+
+Three usable long-tail awards, from the five most promising of ten departments.
