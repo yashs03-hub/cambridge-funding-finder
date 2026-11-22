@@ -120,3 +120,14 @@ test('a word absent from the corpus does not silently match everything', () => {
   const r = retrieve(items, 'quidditch', 20, NOW);
   assert.equal(r.length, 0, `"quidditch" matched ${r.length} records`);
 });
+
+
+test('type hints match at word starts only, not inside other words', () => {
+  // "rent" sits inside "different" and "parent", "sing" inside "using" and
+  // "single". An unanchored alternation used to imply hardship and music
+  // types for those words.
+  const implied = (q) =>
+    retrieve(items, q, 200, NOW).flatMap((s) => s.reasons.filter((r) => r.endsWith('implied')));
+  assert.deepEqual(implied('different approach using parent method'), []);
+  assert.ok(implied('struggling to afford rent').length > 0);
+});
