@@ -10,9 +10,10 @@ for exactly this material. That gap is the product.
 
 ## Status — 2026-07-29
 
-**Live on real data.** 111 awards from 10 colleges. Every record carries a
-verbatim `evidence_quote` re-checked against its live source page, and 82 of
-the 111 are flagged `long_tail` — the uncatalogued travel, hardship, book,
+**Live on real data.** 468 awards from 30 colleges plus university
+departments, societies and other providers. Every record carries a verbatim
+`evidence_quote` re-checked against its live source page, and 294 of
+the 468 are flagged `long_tail` — the uncatalogued travel, hardship, book,
 elective, music and prize funding this product exists for, as opposed to the
 large named scholarships already indexed centrally.
 
@@ -27,7 +28,7 @@ beyond the first three is still manual — the automated fetch/extract/PR loop
 | `docs/superpowers/specs/2026-07-28-cambridge-funding-finder-design.md` | Authoritative design spec |
 | `docs/data-pipeline.md` | Why there is no database, and the scraper contract |
 | `app/`, `components/`, `lib/` | The Next.js application |
-| `data/funding.json` | The dataset — 449 real awards from 30 colleges |
+| `data/funding.json` | The dataset — 468 real awards from 30 colleges and 12 other providers |
 | `data/discovery.json` | Ranked funding-page candidates for all 31 colleges |
 | `scripts/` | Seed verification, funding-page discovery, polite fetching |
 | `test/` | Contrast audit, dataset validation, deadline/filter/seed tests |
