@@ -47,14 +47,14 @@ const STOPWORDS = new Set([
  * though no record contains the word "rent".
  */
 const TYPE_HINTS: Array<[RegExp, FundingItem['type'][]]> = [
-  [/\btravel|abroad|overseas|flight|fieldwork|conference|elective|trip|vacation\b/, ['travel']],
-  [/\bhardship|emergency|rent|struggling|crisis|debt|afford|poverty|broke|urgent\b/, ['hardship']],
-  [/\bbook|equipment|laptop|software|material|stethoscope|instrument\b/, ['grant']],
-  [/\bprize|essay|competition|award for|achievement\b/, ['prize']],
-  [/\bscholarship|studentship|phd|masters|mphil|doctoral\b/, ['scholarship', 'bursary']],
-  [/\bmusic|choral|organ|instrumental|sing\b/, ['grant', 'prize']],
-  [/\bsport|rowing|rugby|football|athletics|blues\b/, ['grant']],
-  [/\blanguage|culp|translation\b/, ['grant']],
+  [/\b(?:travel|abroad|overseas|flight|fieldwork|conference|elective|trip|vacation)/, ['travel']],
+  [/\b(?:hardship|emergency|rent|struggling|crisis|debt|afford|poverty|broke|urgent)/, ['hardship']],
+  [/\b(?:book|equipment|laptop|software|material|stethoscope|instrument)/, ['grant']],
+  [/\b(?:prize|essay|competition|award for|achievement)/, ['prize']],
+  [/\b(?:scholarship|studentship|phd|masters|mphil|doctoral)/, ['scholarship', 'bursary']],
+  [/\b(?:music|choral|organ|instrumental|sing)/, ['grant', 'prize']],
+  [/\b(?:sport|rowing|rugby|football|athletics|blues)/, ['grant']],
+  [/\b(?:language|culp|translation)/, ['grant']],
 ];
 
 export interface Scored {
